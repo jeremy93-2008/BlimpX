@@ -2,4 +2,4 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BlimpX } from "./blimpx";
 
-ReactDOM.render(<BlimpX></BlimpX>, document.getElementById("root"))
+ReactDOM.render(<BlimpX/>, document.getElementById("root"))

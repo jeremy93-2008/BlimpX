@@ -1,41 +1,22 @@
-import React from "react";
-import { observer, Observer, useLocalObservable } from "mobx-react";
-import { TopMenu } from "./components/top-menu";
-import { IMenuItem } from "./components/top-menu/menu-item";
+import React, {useReducer} from "react";
+import {IBlimpXAction} from "./blimpx.typing";
 
-interface IBlimpXStore {
-    menu: {
-        items: IMenuItem[],
-        onClick: () => void;
-    }
-}
+const blimpStore = {};
 
-export const BlimpContext = React.createContext<IBlimpXStore | null>(null);
+export const BlimpContext = React.createContext<any>(blimpStore);
 
 export function BlimpX() {
-    const store = useLocalObservable<IBlimpXStore>(() => ({
-        menu: {
-            items:[
-                {
-                    text: "Archivo",
-                    items: []
-                },
-                {
-                    text: "Edición",
-                    items: []
-                }
-            ],
-            onClick: () => {
-                store.menu.items.push({text: "Hola", items:[]})
-            }
+    const [store, setBlimpStore] = useReducer((state: any, action: IBlimpXAction) => {
+        switch(action.type) {
+            default:
+                return state;
         }
-    }));
+    }, blimpStore)
 
     return (
-            <BlimpContext.Provider value={store}>
+            <BlimpContext.Provider value={[store, setBlimpStore]}>
                 <div className="blimpx-container">
-                    <button onClick={() => store.menu.onClick()}>hey</button>
-                    <TopMenu items={store.menu.items}></TopMenu>
+                    <h1>BlimpX</h1>
                 </div>
             </BlimpContext.Provider>);
 }
