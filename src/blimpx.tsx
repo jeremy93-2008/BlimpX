@@ -1,5 +1,8 @@
-import React, {useReducer} from "react";
+import React, { useReducer } from "react";
 import {IBlimpXAction} from "./blimpx.typing";
+import {Toolbar} from "./templates/toolbar";
+
+import "./blimpx.scss";
 
 const blimpStore = {};
 
@@ -16,7 +19,7 @@ export function BlimpX() {
     return (
             <BlimpContext.Provider value={[store, setBlimpStore]}>
                 <div className="blimpx-container">
-                    <h1>BlimpX</h1>
+                    <Toolbar/>
                 </div>
             </BlimpContext.Provider>);
 }
