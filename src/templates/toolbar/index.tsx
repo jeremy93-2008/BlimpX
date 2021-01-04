@@ -2,6 +2,7 @@ import React from "react";
 import "./toolbar.scss";
 import {FaMousePointer, FaRegSquare, FaRegCircle, FaFont, FaImage, FaPenNib} from "react-icons/fa";
 import {IToolbarButton, ToolbarButton} from "../../component/toolbarButton";
+import {UserButton} from "../../component/userButton";
 
 export const toolbarData: IToolbarButton[] = [
     {
@@ -32,10 +33,14 @@ export const toolbarData: IToolbarButton[] = [
 
 export function Toolbar() {
     return (
-        <div className="toolbar-container">
-            {toolbarData.map(({label, icon}) =>
-                <ToolbarButton icon={icon} label={label} />
-            )}
+        <div className="header-container">
+            <div className="toolbar-container">
+                {toolbarData.map(({label, icon}) =>
+                    <ToolbarButton icon={icon} label={label} />
+                )}
+            </div>
+            <UserButton />
         </div>
+
     )
 }

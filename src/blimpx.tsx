@@ -1,5 +1,5 @@
 import React, { useReducer } from "react";
-import {IBlimpXAction} from "./blimpx.typing";
+import { IBlimpXAction} from "./blimpx.typing";
 import {Toolbar} from "./templates/toolbar";
 
 import "./blimpx.scss";
