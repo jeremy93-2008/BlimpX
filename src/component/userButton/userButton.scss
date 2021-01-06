@@ -1,10 +1,13 @@
 .user-container {
   display: flex;
   box-sizing: border-box;
-  font-family: Arial;
+  cursor: pointer;
+  font-family: "Open Sans", sans-serif;
   align-items: center;
   background-color: #666666;
-  margin: 10px 5px;
-  color: white;
+  padding: 5px 20px;
+  border-radius: 10px;
   margin-right: 10px;
+  color: white;
+  height: 45px;
 }
