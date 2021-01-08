@@ -6,13 +6,17 @@ import "./toolbarButton.scss";
 export interface IToolbarButton {
     icon: IconType;
     label: string;
+    size?: number;
+    gap?: number;
+    onClick?: () => void;
 }
 
 export function ToolbarButton(props: IToolbarButton) {
     return (
-      <div className="toolbar-button">
+      <div onClick={props.onClick} className="toolbar-button"
+           style={!!props.gap ? {margin: `0 ${props.gap}px`} : {}}>
           <div title={props.label} className="icon-button">
-              <props.icon color={"white"} size={24} />
+              <props.icon color={"white"} size={props.size || 24} />
           </div>
       </div>
     );
