@@ -1,20 +1,32 @@
 export interface IBlimpXAction {
     type: "setUser" | "setFolder" | "setFrames" |
-        "setTimeline" | "setName" | "setFps";
+        "setTimeline" | "setName" | "setFps" | "setCurrentFrame";
     state: Partial<IBlimpXState>;
 }
 
 export interface IBlimpXState {
     _id: string;
     name: string;
-    frames: IBlimpTimeline[];
+    currentFrame: number;
+    frames: IBlimpFrame[];
     folders: IBlimpFolder[];
-    timeline: any;
+    timeline: IBlimpTimeline;
     fps: number;
     user: IBlimpUser;
 }
 
+export type IScrollTimeline = {
+    x: number;
+    y: number;
+};
+
 export interface IBlimpTimeline {
+    zoom: number;
+    scroll: IScrollTimeline;
+    selectedElements: { id: number }[];
+}
+
+export interface IBlimpFrame {
     _id: string;
     name: string;
     frame: number;
@@ -44,6 +56,7 @@ export interface IBlimpFolder {
     _id: string;
     name: string;
     color: string;
+    open: boolean;
 }
 
 export interface IBlimpUser {

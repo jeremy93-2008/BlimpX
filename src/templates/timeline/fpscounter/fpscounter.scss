@@ -1,0 +1,20 @@
+.fpscounter-container {
+  .fps-input {
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 1px lightgray;
+    color: white;
+    font-size: 16px;
+    outline: none;
+    transition: border-color .3s ease-in-out;
+    width: 32px;
+
+    &:focus {
+      border-color: #3e8fc6;
+    }
+  }
+  .fps-text {
+    font-size: 12px;
+    margin-left: 5px;
+  }
+}

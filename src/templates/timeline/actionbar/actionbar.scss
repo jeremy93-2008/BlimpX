@@ -1,6 +1,11 @@
 .actionbar-container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   color: white;
   height: 36px;
+
+  .actionbar-section {
+    display: flex;
+  }
 }
