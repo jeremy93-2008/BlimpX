@@ -36,7 +36,7 @@ export function Toolbar() {
         <div className="header-container">
             <div className="toolbar-container">
                 {toolbarData.map(({label, icon}) =>
-                    <ToolbarButton icon={icon} label={label} />
+                    <ToolbarButton key={label} icon={icon} label={label} />
                 )}
             </div>
             <UserButton />

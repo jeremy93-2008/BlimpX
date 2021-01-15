@@ -1,0 +1,13 @@
+.header-frames-container {
+  display: flex;
+  flex: 1;
+  color: white;
+  align-items: center;
+  justify-content: right;
+  padding-right: 5px;
+  border-right: solid 1px grey;
+
+  > div, > svg {
+    margin-right: 10px;
+  }
+}

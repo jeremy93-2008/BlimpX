@@ -5,13 +5,15 @@ export const blimpStore: IBlimpXState = {
     _id: uuidv4(),
     name: "Untitled",
     currentFrame: 0,
-    frames: [],
-    folders: [],
+    currentLayer: "",
+    layers: [],
     timeline: {
         scroll: {
             x: 0,
             y: 0
         },
+        timer: 0,
+        maxTimer: 0,
         selectedElements: [],
         zoom: 0
     },
@@ -32,10 +34,8 @@ export const blimpActions = (state: IBlimpXState, action: IBlimpXAction): IBlimp
             return {...state, fps: action.state.fps!};
         case "setCurrentFrame":
             return {...state, currentFrame: action.state.currentFrame!};
-        case "setFolder":
-            return {...state, folders: action.state.folders!};
-        case "setFrames":
-            return {...state, frames: action.state.frames!};
+        case "setLayer":
+            return {...state, layers: action.state.layers!};
         case "setTimeline":
             return {...state, timeline: action.state.timeline!};
         default:
