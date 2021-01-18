@@ -25,6 +25,7 @@ export interface IBlimpTimeline {
     scroll: IScrollTimeline;
     timer: number;
     maxTimer: number;
+    maxTimeline: number;
     selectedElements: { id: number }[];
 }
 

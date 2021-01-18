@@ -1,5 +1,5 @@
 import React from "react";
-import {FaEye, FaLock} from "react-icons/all";
+import {FaEye, FaLock} from "react-icons/fa";
 import {ColorIcon} from "../../../../../component/colorIcon";
 
 import "./frames.scss";

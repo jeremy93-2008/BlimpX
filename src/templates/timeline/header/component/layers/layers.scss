@@ -1,4 +1,27 @@
 .layers-header-container {
+  position: relative;
   display: flex;
   flex: 6;
+  margin-left: -1px;
+  min-width: 0;
+
+  .line {
+    min-width: 1px;
+    margin-right: 10px;
+    height: 12px;
+    background: gray;
+
+    &.second {
+      height: 18px;
+    }
+  }
+
+  .timespan {
+    position: absolute;
+    color: darkgray;
+    font-weight: 500;
+    top: 16px;
+    margin-left: -6px;
+    font-size: 11px;
+  }
 }

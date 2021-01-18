@@ -14,6 +14,7 @@ export const blimpStore: IBlimpXState = {
         },
         timer: 0,
         maxTimer: 0,
+        maxTimeline: 2880,
         selectedElements: [],
         zoom: 0
     },
