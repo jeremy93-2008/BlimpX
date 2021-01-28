@@ -1,12 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
-import {IBlimpXAction, IBlimpXState} from "./blimpx.typing";
+import {IBlimpXAction, IBlimpState} from "./blimpx.typing";
+import {mockLayers} from "../test/mockLayers";
 
-export const blimpStore: IBlimpXState = {
+export const blimpStore: IBlimpState = {
     _id: uuidv4(),
     name: "Untitled",
     currentFrame: 0,
-    currentLayer: "",
-    layers: [],
+    currentLayer: 0,
+    layers: (process.env.NODE_ENV) ? mockLayers : [],
     timeline: {
         scroll: {
             x: 0,
@@ -25,7 +26,7 @@ export const blimpStore: IBlimpXState = {
     }
 };
 
-export const blimpActions = (state: IBlimpXState, action: IBlimpXAction): IBlimpXState => {
+export const blimpActions = (state: IBlimpState, action: IBlimpXAction): IBlimpState => {
     switch(action.type) {
         case "setName":
             return {...state, name: action.state.name!};

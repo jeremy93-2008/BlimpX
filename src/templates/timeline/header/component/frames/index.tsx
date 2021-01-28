@@ -1,15 +1,12 @@
 import React from "react";
-import {FaEye, FaLock} from "react-icons/fa";
-import {ColorIcon} from "../../../../../component/colorIcon";
 
 import "./frames.scss";
+import {FrameOptions} from "../../../../../component/frameOptions";
 
 export function HeaderFrames() {
     return (
         <div className="header-frames-container">
-            <FaEye />
-            <FaLock />
-            <ColorIcon color={"white"} />
+            <FrameOptions onVisibility={() => true} onLock={() => false} />
         </div>
     )
 }

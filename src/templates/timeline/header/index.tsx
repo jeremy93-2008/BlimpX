@@ -4,7 +4,7 @@ import {HeaderLayers} from "./component/layers";
 
 import "./header.scss";
 
-export function TimelineHeader() {
+export function Header() {
     return (
         <div className="timeline-header-container">
             <HeaderFrames />

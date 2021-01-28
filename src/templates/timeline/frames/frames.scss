@@ -1,0 +1,35 @@
+.frames-container {
+  border-top: solid 1px gray;
+  height: 30vh;
+}
+
+.layer-container {
+  display: flex;
+  height: 25px;
+  border-bottom: solid 1px gray;
+
+  .frame-layer-container {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    flex: 6;
+    box-sizing: border-box;
+
+    .line {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      background-color: gray;
+      position: relative;
+      color: lightgray;
+      min-width: 1px;
+      height: 100%;
+      margin-right: 10px;
+      .is-frame-exist {
+        display: inline-block;
+        cursor: default;
+        margin-left: 1px;
+      }
+    }
+  }
+}

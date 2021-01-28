@@ -1,14 +1,14 @@
 export interface IBlimpXAction {
     type: "setUser" | "setLayer" |
         "setTimeline" | "setName" | "setFps" | "setCurrentFrame";
-    state: Partial<IBlimpXState>;
+    state: Partial<IBlimpState>;
 }
 
-export interface IBlimpXState {
+export interface IBlimpState {
     _id: string;
     name: string;
     currentFrame: number;
-    currentLayer: string;
+    currentLayer: number;
     layers: IBlimpLayer[];
     timeline: IBlimpTimeline;
     fps: number;

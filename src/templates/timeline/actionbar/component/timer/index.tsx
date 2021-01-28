@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {BlimpContext} from "../../../../../blimpx";
+import {BlimpContext, IBlimpContext} from "../../../../../blimpx";
 import { formatTimeFromMilliseconds } from "../../../../../util/time";
 
 import "./timer.scss";

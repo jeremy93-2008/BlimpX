@@ -8,8 +8,11 @@ import {Timeline} from "./templates/timeline";
 import {blimpActions, blimpStore} from "./blimpStore";
 
 import "./blimpx.scss";
+import {IBlimpXAction, IBlimpState} from "./blimpx.typing";
 
-export const BlimpContext = React.createContext<any>(blimpStore);
+export type IBlimpContext = [IBlimpState, React.Dispatch<IBlimpXAction>];
+
+export const BlimpContext = React.createContext<IBlimpContext>([blimpStore, () => {}]);
 
 export function BlimpX() {
     const [store, setBlimpStore] = useReducer(blimpActions, blimpStore)

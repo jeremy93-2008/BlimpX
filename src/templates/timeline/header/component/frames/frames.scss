@@ -1,6 +1,7 @@
 .header-frames-container {
   display: flex;
   flex: 1;
+  min-width: 0;
   color: white;
   align-items: center;
   justify-content: flex-end;

@@ -2,13 +2,15 @@ import React from "react";
 import {ActionBar} from "./actionbar";
 
 import "./timeline.scss";
-import {TimelineHeader} from "./header";
+import {Header} from "./header";
+import {Frames} from "./frames";
 
 export function Timeline() {
     return (
         <div className="timeline-container">
             <ActionBar/>
-            <TimelineHeader />
+            <Header />
+            <Frames />
         </div>
     )
 }

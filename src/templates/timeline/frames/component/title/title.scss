@@ -1,0 +1,23 @@
+.title-layer-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  min-width:0;
+  padding-right: 5px;
+  flex: 1;
+
+  .title-layer {
+    padding-left: 10px;
+  }
+
+  .frame-options-container {
+    display: inline-block;
+
+    > div, > svg {
+      color: white;
+      margin-right: 10px;
+    }
+
+  }
+}
