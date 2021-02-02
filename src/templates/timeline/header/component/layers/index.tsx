@@ -1,16 +1,17 @@
-import React, {useCallback, useContext, useRef, useState} from "react";
+import React, {useCallback, useContext, useEffect, useRef, useState} from "react";
 
 import "./layers.scss";
 import {BlimpContext} from "../../../../../blimpx";
 import {getLayersByWidth, useWidthLayer} from "../../../../../util/layers";
 import {Cursor} from "../cursor";
+import {onWindowCursorMove} from "../../../../../util/window";
 
 export function HeaderLayers() {
     const [ store, setStore ] = useContext(BlimpContext);
     const [isCursorMoving, setCursorMoving] = useState(false);
     const cursorRef = useRef<HTMLDivElement>(null);
 
-    const layersRef = useRef<HTMLDivElement>(null);
+    const layerRef = useRef<HTMLDivElement>(null);
     const [layersWidth, setLayersWidth] = useState(0);
 
     const onCursorDown = useCallback(() => {
@@ -18,32 +19,25 @@ export function HeaderLayers() {
         setCursorMoving(true)
     }, []);
 
-    const onCursorMove = useCallback(event => {
-        if(!isCursorMoving) return;
-        const header = cursorRef.current!.getBoundingClientRect();
-        const cursor = event.target.getBoundingClientRect();
-        console.log(Math.trunc((cursor.x - header.x) / 11) + 1)
-        setStore({
-            type:"setCurrentFrame",
-            state: {
-                currentFrame: Math.trunc((cursor.x - header.x) / 11)
-            }
-        });
-    }, [isCursorMoving])
+    useEffect(() => {
+        const removeEventListener = onWindowCursorMove(
+            {
+                isCursorMoving,
+                setCursorMoving,
+                layerRef,
+                cursorRef,
+                setStore
+            });
 
-    const onCursorUp = useCallback(() => {
-        if(!isCursorMoving) return;
-        setCursorMoving(false)
-    }, [isCursorMoving])
+        return () => {
+            removeEventListener();
+        }
+    }, [isCursorMoving]);
 
-    useWidthLayer(layersRef, setLayersWidth, store)
+    useWidthLayer(layerRef, setLayersWidth, store)
 
     return (
-        <div ref={layersRef}
-             className="layers-header-container"
-             onMouseMove={onCursorMove}
-             onMouseUp={onCursorUp}
-        >
+        <div ref={layerRef} className="layers-header-container">
             <Cursor
                 refCursor={cursorRef}
                 frame={store.currentFrame}
