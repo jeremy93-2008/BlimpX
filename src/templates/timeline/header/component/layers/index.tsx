@@ -20,12 +20,14 @@ export function HeaderLayers() {
     }, []);
 
     useEffect(() => {
+        if(!isCursorMoving) return;
         const removeEventListener = onWindowCursorMove(
             {
                 isCursorMoving,
                 setCursorMoving,
                 layerRef,
                 cursorRef,
+                store,
                 setStore
             });
 

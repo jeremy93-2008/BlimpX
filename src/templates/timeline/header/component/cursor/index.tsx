@@ -12,7 +12,7 @@ export function Cursor(props: ICursorProps) {
     const { frame, onMouseDown, refCursor } = props;
 
     return (
-        <div ref={refCursor} className="cursor-container" style={{left: frame * 11}}>
+        <div ref={refCursor} className="cursor-container" style={{left: frame * 11 + 5.5}}>
             <div onMouseDown={onMouseDown} className="cursor-header" />
         </div>
     )

@@ -1,5 +1,5 @@
 import React from "react";
-import { IBlimpXAction } from "../blimpx.typing";
+import {IBlimpState, IBlimpXAction} from "../blimpx.typing";
 import { noop } from "../component/noop";
 
 interface IWindowCursorMove {
@@ -7,6 +7,7 @@ interface IWindowCursorMove {
     setCursorMoving: React.Dispatch<React.SetStateAction<boolean>>
     layerRef: React.RefObject<HTMLDivElement>;
     cursorRef:  React.RefObject<HTMLDivElement>;
+    store: IBlimpState;
     setStore:  React.Dispatch<IBlimpXAction>;
 }
 
@@ -17,27 +18,27 @@ export function onWindowCursorMove(param: IWindowCursorMove) {
     const onMouseMove = (evt: MouseEvent) => onCursorMove(evt, param);
     const onMouseUp = (evt: MouseEvent) => onCursorUp(evt, param)
 
-    window.addEventListener("mousedown", onMouseMove);
-    window.addEventListener("mouseup", onMouseUp)
+    document.addEventListener("mousemove", onMouseMove);
+    document.addEventListener("mouseup", onMouseUp)
 
     return () => {
-        window.removeEventListener("mousedown", onMouseMove)
-        window.removeEventListener("mouseup", onMouseUp)
+        document.removeEventListener("mousemove", onMouseMove)
+        document.removeEventListener("mouseup", onMouseUp)
     };
 }
 
 function onCursorMove(evt: MouseEvent, param: IWindowCursorMove) {
-    const {layerRef, cursorRef, setStore} = param;
-    // Need to do some calculation
-    const header = cursorRef.current!.getBoundingClientRect();
-    /*const cursor = event.target.getBoundingClientRect();
-    console.log(Math.trunc((cursor.x - header.x) / 11) + 1)
+    const {layerRef, setStore, store} = param;
+    const header = layerRef.current!.getBoundingClientRect().x;
+    const cursor = evt.clientX;
+    const newCurrentFrame = Math.trunc((cursor - header) / 11);
+    if (newCurrentFrame == store.currentFrame) return;
     setStore({
         type:"setCurrentFrame",
         state: {
-            currentFrame: Math.trunc((cursor.x - header.x) / 11)
+            currentFrame: newCurrentFrame + 1
         }
-    });*/
+    });
 }
 
 function onCursorUp(evt: MouseEvent, param: IWindowCursorMove) {
