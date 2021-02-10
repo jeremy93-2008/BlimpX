@@ -31,8 +31,9 @@ function onCursorMove(evt: MouseEvent, param: IWindowCursorMove) {
     const {layerRef, setStore, store} = param;
     const header = layerRef.current!.getBoundingClientRect().x;
     const cursor = evt.clientX;
-    const newCurrentFrame = Math.trunc((cursor - header) / 11);
+    let newCurrentFrame = Math.trunc((cursor - header) / 11);
     if (newCurrentFrame == store.currentFrame) return;
+    if(newCurrentFrame <= 0) newCurrentFrame = -1;
     setStore({
         type:"setCurrentFrame",
         state: {

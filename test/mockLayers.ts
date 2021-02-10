@@ -15,7 +15,7 @@ export const mockLayers: IBlimpLayer[] = [
                 frames: [
                     {
                         _id: uuidv4(),
-                        frame: 1,
+                        frame: 0,
                         params: {
                             x: 50,
                             y: 50,
@@ -25,7 +25,7 @@ export const mockLayers: IBlimpLayer[] = [
                     },
                     {
                         _id: uuidv4(),
-                        frame: 2,
+                        frame: 1,
                         params: {
                             x: 55,
                             y: 55,
@@ -50,7 +50,7 @@ export const mockLayers: IBlimpLayer[] = [
                 frames: [
                     {
                         _id: uuidv4(),
-                        frame: 1,
+                        frame: 0,
                         params: {
                             x: 150,
                             y: 80,
@@ -59,7 +59,7 @@ export const mockLayers: IBlimpLayer[] = [
                     },
                     {
                         _id: uuidv4(),
-                        frame: 2,
+                        frame: 1,
                         params: {
                             x: 150,
                             y: 100,

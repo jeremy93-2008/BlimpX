@@ -63,6 +63,10 @@ export interface IBlimpFrame {
     }
 }
 
+export interface IBlimpObjectRender extends IBlimpObject {
+    frame: IBlimpFrame;
+}
+
 export interface IBlimpUser {
     name: string;
     imageURL: string;
