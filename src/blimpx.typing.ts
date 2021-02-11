@@ -50,21 +50,28 @@ export interface IBlimpObject {
 export interface IBlimpFrame {
     _id: string;
     frame: number;
-    params: {
-        x: number | number[];
-        y: number | number[];
-        label?: string;
-        fontSize?: number;
-        path?: { x: number, y: number, radius?: number }[];
-        source?: string;
-        width?: number;
-        height?: number;
-        style?: any;
-    }
+    params: IBlimpParams
 }
 
-export interface IBlimpObjectRender extends IBlimpObject {
-    frame: IBlimpFrame;
+export interface IBlimpParams {
+    x: number | number[];
+    y: number | number[];
+    label?: string;
+    fontSize?: number;
+    path?: { x: number, y: number, radius?: number }[];
+    source?: string;
+    width?: number;
+    height?: number;
+    style?: any;
+}
+
+export interface IBlimpObjectRender {
+    _id: string;
+    type: IBlimpObjectType;
+    frames: {
+        currentFrame: IBlimpFrame,
+        nextFrames?: IBlimpFrame
+    }
 }
 
 export interface IBlimpUser {
