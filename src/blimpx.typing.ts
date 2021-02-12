@@ -1,3 +1,10 @@
+import {ShapeConfig} from "konva/types/Shape";
+import {CircleConfig} from "konva/types/shapes/Circle";
+import {RectConfig} from "konva/types/shapes/Rect";
+import {ImageConfig} from "konva/types/shapes/Image";
+import {TextConfig} from "konva/types/shapes/Text";
+import {PathConfig} from "konva/types/shapes/Path";
+
 export interface IBlimpXAction {
     type: "setUser" | "setLayer" |
         "setTimeline" | "setName" | "setFps" | "setCurrentFrame";
@@ -53,17 +60,9 @@ export interface IBlimpFrame {
     params: IBlimpParams
 }
 
-export interface IBlimpParams {
-    x: number | number[];
-    y: number | number[];
-    label?: string;
-    fontSize?: number;
-    path?: { x: number, y: number, radius?: number }[];
-    source?: string;
-    width?: number;
-    height?: number;
-    style?: any;
-}
+export type IBlimpParams = Partial<IKonvaParams>
+
+export type IKonvaParams = RectConfig & CircleConfig & ImageConfig & TextConfig & PathConfig;
 
 export interface IBlimpObjectRender {
     _id: string;

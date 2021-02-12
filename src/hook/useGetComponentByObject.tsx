@@ -2,41 +2,22 @@ import React from "react";
 import {useCallback} from "react";
 import {IBlimpObjectRender, IBlimpParams, IBlimpState} from "../blimpx.typing";
 import {Circle, Image, Path, Rect, Text} from "react-konva";
+import {CircleConfig} from "konva/types/shapes/Circle";
+import {PathConfig} from "konva/types/shapes/Path";
+import {ImageConfig} from "konva/types/shapes/Image";
 
-const RectAttrs = (params: IBlimpParams) => ({
-    x: params.x as number,
-    y: params.y as number,
-    width: params.width,
-    height: params.height
-});
-
-const CircleAttrs = (params: IBlimpParams) => ({
-    x: params.x,
-    y: params.y,
-    radius: params.width,
-})
-
-const ImageAttrs = (params: IBlimpParams) => ({
-    x: params.x,
-    y: params.y,
-    radius: params.width,
-})
-
-const TextAttrs = (params: IBlimpParams) => ({
-    x: params.x,
-    y: params.y,
-    text: params.label
-})
-
-const PathAttrs = (params: IBlimpParams) => ({
-    x: params.x,
-    y: params.y,
-    radius: params.width,
-})
+const getAttrs = (params: IBlimpParams | null) => {
+    if(!params) return {};
+    return {...params};
+}
 
 export function useGetComponentByObject(store: IBlimpState) {
     return useCallback((obj: IBlimpObjectRender) => {
         const [CurrentComponent, NextComponent] = getComponentByType(obj)
+        return {
+            CurrentComponent,
+            NextComponent
+        }
     }, [])
 }
 
@@ -46,14 +27,19 @@ function getComponentByType(obj: IBlimpObjectRender) {
     const nextParams = nextFrames ? nextFrames.params : null
     switch(obj.type) {
         case "Rectangle":
-            return [<Rect {...RectAttrs(currentParams)}/>, <Rect />];
+            return [<Rect key={obj._id} {...getAttrs(currentParams)}/>,
+                <Rect key={obj._id}  {...getAttrs(nextParams)} />];
         case "Circle":
-            return [<Circle />, <Circle />];
+            return [<Circle key={obj._id}  {...getAttrs(currentParams) as CircleConfig} />,
+                <Circle key={obj._id}  {...getAttrs(nextParams) as CircleConfig} />];
         case "Image":
-            return [<Image />, <Image />];
+            return [<Image key={obj._id} {...getAttrs(currentParams) as ImageConfig} />,
+                <Image key={obj._id} {...getAttrs(nextParams) as ImageConfig} />];
         case "Text":
-            return [<Text />, <Text />];
+            return [<Text key={obj._id} {...getAttrs(currentParams)} />,
+                <Text key={obj._id} {...getAttrs(nextParams)} />];
         default:
-            return [<Path />, <Path />]
+            return [<Path key={obj._id} {...getAttrs(currentParams) as PathConfig} />,
+                <Path key={obj._id} {...getAttrs(nextParams) as PathConfig} />]
     }
 }

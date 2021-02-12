@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useEffect, useRef, useState} from "react";
+import React, {MouseEvent as MouseEvt, useCallback, useContext, useEffect, useRef, useState} from "react";
 
 import "./layers.scss";
 import {BlimpContext} from "../../../../../blimpx";
@@ -14,8 +14,8 @@ export function HeaderLayers() {
     const layerRef = useRef<HTMLDivElement>(null);
     const [layersWidth, setLayersWidth] = useState(0);
 
-    const onCursorDown = useCallback(() => {
-        if(isCursorMoving) return;
+    const onCursorDown = useCallback((evt: MouseEvt<HTMLDivElement, MouseEvent>) => {
+        if(evt.buttons == 2 || isCursorMoving) return;
         setCursorMoving(true)
     }, []);
 

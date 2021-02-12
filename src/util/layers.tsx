@@ -48,7 +48,7 @@ const getHeaderLayers = (store: IBlimpState, idx: number) => {
 }
 
 const getFrameLayers = (layer: IBlimpLayer, idx: number) => {
-    const currentFrame = idx + 1;
+    const currentFrame = idx;
     const isFrameExist = layer.objects.map(obj =>
         obj.frames.find(frame => frame.frame === currentFrame)).filter(f => f !== undefined)
     return (<>

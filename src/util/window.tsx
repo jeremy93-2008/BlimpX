@@ -33,11 +33,11 @@ function onCursorMove(evt: MouseEvent, param: IWindowCursorMove) {
     const cursor = evt.clientX;
     let newCurrentFrame = Math.trunc((cursor - header) / 11);
     if (newCurrentFrame == store.currentFrame) return;
-    if(newCurrentFrame <= 0) newCurrentFrame = -1;
+    if(newCurrentFrame <= 0) newCurrentFrame = 0;
     setStore({
         type:"setCurrentFrame",
         state: {
-            currentFrame: newCurrentFrame + 1
+            currentFrame: newCurrentFrame
         }
     });
 }

@@ -1,11 +1,11 @@
-import React from "react";
+import React, {MouseEvent as MouseEvt} from "react";
 
 import "./cursor.scss";
 
 interface ICursorProps {
     frame: number;
     refCursor?: React.RefObject<HTMLDivElement>
-    onMouseDown?: () => void;
+    onMouseDown?: (evt: MouseEvt<HTMLDivElement, MouseEvent>) => void;
 }
 
 export function Cursor(props: ICursorProps) {
