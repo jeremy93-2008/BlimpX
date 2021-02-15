@@ -5,10 +5,12 @@ export function useGetObjectByFrame(store: IBlimpState) {
     return useCallback((frame: number) => {
         return store.layers.map((layer) => {
             return layer.objects.map((obj): IBlimpObjectRender | null => {
+                const { onionLayersShown } = store.timeline
                 const frameObj = obj.frames.find(f => f.frame == frame)
-                const newFrameObj = obj.frames.find(f => f.frame == frame + 1)
+                const newFrames = obj.frames.filter(f => f.frame <= frame + onionLayersShown &&
+                    frame >= frame - onionLayersShown)
                 if (!frameObj) return null;
-                return {...obj, frames: {currentFrame: frameObj, nextFrames: newFrameObj}}
+                return {...obj, frames: {currentFrame: frameObj, nextFrames: newFrames}}
             })
         }).flat()
     }, [])

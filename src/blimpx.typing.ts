@@ -69,7 +69,7 @@ export interface IBlimpObjectRender {
     type: IBlimpObjectType;
     frames: {
         currentFrame: IBlimpFrame,
-        nextFrames?: IBlimpFrame
+        nextFrames?: IBlimpFrame[]
     }
 }
 
