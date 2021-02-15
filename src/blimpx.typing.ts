@@ -1,4 +1,3 @@
-import {ShapeConfig} from "konva/types/Shape";
 import {CircleConfig} from "konva/types/shapes/Circle";
 import {RectConfig} from "konva/types/shapes/Rect";
 import {ImageConfig} from "konva/types/shapes/Image";
@@ -29,6 +28,7 @@ export type IScrollTimeline = {
 
 export interface IBlimpTimeline {
     zoom: number;
+    onionLayersShown: number;
     scroll: IScrollTimeline;
     timer: number;
     maxTimer: number;

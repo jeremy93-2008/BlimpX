@@ -13,6 +13,7 @@ export const blimpStore: IBlimpState = {
             x: 0,
             y: 0
         },
+        onionLayersShown: 2,
         timer: 0,
         maxTimer: 0,
         maxTimeline: 2880,

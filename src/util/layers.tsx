@@ -40,7 +40,10 @@ export const getLayersByWidth = (name: layersType, store: IBlimpState, layersWid
 }
 
 const getHeaderLayers = (store: IBlimpState, idx: number) => {
-    return (<div key={idx}>
+    const { currentFrame } = store;
+    const { onionLayersShown } = store.timeline;
+    const isFrameShown = idx <= currentFrame + onionLayersShown && idx >= currentFrame - onionLayersShown;
+    return (<div className={`line-container ${isFrameShown ? "onion" : ""}`} key={idx}>
         <div className={`line ${idx % store.fps == 0 ? "second" : ""}`}/>
         {idx > 0 && idx % store.fps == 0 ?
             <div className="timespan" style={{left: frameWidth * idx}}>{idx / store.fps}s</div> : ""}
