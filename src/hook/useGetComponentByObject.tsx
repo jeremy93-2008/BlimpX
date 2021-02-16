@@ -1,7 +1,7 @@
 import React from "react";
 import {useCallback} from "react";
 import {IBlimpFrame, IBlimpObjectRender, IBlimpParams, IBlimpState} from "../blimpx.typing";
-import {Circle, Image, Path, Rect, Text} from "react-konva";
+import {Circle, Image, KonvaNodeComponent, Path, Rect, Text} from "react-konva";
 import {CircleConfig} from "konva/types/shapes/Circle";
 import {PathConfig} from "konva/types/shapes/Path";
 import {ImageConfig} from "konva/types/shapes/Image";
@@ -11,38 +11,41 @@ const getAttrs = (params: IBlimpParams | null) => {
     return {...params};
 }
 
-const getOnionComponents = (Component: any, frame: IBlimpFrame) => {
-    return <Component key={frame._id} {...getAttrs(frame.params)} />
+const getOnionComponents = (Component: KonvaNodeComponent<any, any>, currentFrame: number, frame: IBlimpFrame) => {
+    const opacityNumber = Math.abs((frame.frame / (currentFrame || 1)) - 0.3);
+    const isPrevFrame = frame.frame < currentFrame;
+    return <Component key={frame._id} {...getAttrs(frame.params)}
+                      opacity={opacityNumber} />
 }
 
 export function useGetComponentByObject(store: IBlimpState) {
     return useCallback((obj: IBlimpObjectRender) => {
-        const [CurrentComponent, NextComponent] = getComponentByType(obj)
+        const [CurrentComponent, NextComponents] = getComponentByType(store, obj)
         return {
             CurrentComponent,
-            NextComponent
+            NextComponents
         }
-    }, [])
+    }, [store])
 }
 
-function getComponentByType(obj: IBlimpObjectRender) {
+function getComponentByType(store: IBlimpState ,obj: IBlimpObjectRender) {
     const {currentFrame, nextFrames} = obj.frames
-    const currentParams = currentFrame.params
+    const currentParams = currentFrame ? currentFrame.params : {};
     switch(obj.type) {
         case "Rectangle":
-            return [<Rect key={obj._id} {...getAttrs(currentParams)}/>,
-                nextFrames!.map(f => getOnionComponents(Rect, f))];
+            return [currentFrame ? <Rect key={obj._id} {...getAttrs(currentParams)}/> : null,
+                nextFrames!.map(f => getOnionComponents(Rect, store.currentFrame, f))];
         case "Circle":
-            return [<Circle key={obj._id}  {...getAttrs(currentParams) as CircleConfig} />,
-                nextFrames!.map(f => getOnionComponents(Circle, f))];
+            return [currentFrame ? <Circle key={obj._id}  {...getAttrs(currentParams) as CircleConfig} /> : null,
+                nextFrames!.map(f => getOnionComponents(Circle, store.currentFrame, f))];
         case "Image":
-            return [<Image key={obj._id} {...getAttrs(currentParams) as ImageConfig} />,
-                nextFrames!.map(f => getOnionComponents(Image, f))];
+            return [currentFrame ? <Image key={obj._id} {...getAttrs(currentParams) as ImageConfig} /> : null,
+                nextFrames!.map(f => getOnionComponents(Image, store.currentFrame, f))];
         case "Text":
-            return [<Text key={obj._id} {...getAttrs(currentParams)} />,
-                nextFrames!.map(f => getOnionComponents(Text, f))];
+            return [currentFrame ? <Text key={obj._id} {...getAttrs(currentParams)} /> : null,
+                nextFrames!.map(f => getOnionComponents(Text, store.currentFrame, f))];
         default:
-            return [<Path key={obj._id} {...getAttrs(currentParams) as PathConfig} />,
-                    nextFrames!.map(f => getOnionComponents(Path, f))]
+            return [currentFrame ? <Path key={obj._id} {...getAttrs(currentParams) as PathConfig} /> : null,
+                    nextFrames!.map(f => getOnionComponents(Path, store.currentFrame, f))]
     }
 }

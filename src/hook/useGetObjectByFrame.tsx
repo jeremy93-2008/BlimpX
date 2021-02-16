@@ -8,10 +8,9 @@ export function useGetObjectByFrame(store: IBlimpState) {
                 const { onionLayersShown } = store.timeline
                 const frameObj = obj.frames.find(f => f.frame == frame)
                 const newFrames = obj.frames.filter(f => f.frame <= frame + onionLayersShown &&
-                    frame >= frame - onionLayersShown)
-                if (!frameObj) return null;
+                    f.frame >= frame - onionLayersShown && frame != f.frame)
                 return {...obj, frames: {currentFrame: frameObj, nextFrames: newFrames}}
             })
         }).flat()
-    }, [])
+    }, [store])
 }

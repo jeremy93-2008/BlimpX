@@ -23,8 +23,11 @@ export function BlimpStage(props: IBlimpStageProps) {
             <Layer>
                 {getObjectByFrame(store.currentFrame).map(object => {
                     if (!object) return;
-                    const { CurrentComponent, NextComponent } = getComponentByObject(object)
-                    return CurrentComponent
+                    const { CurrentComponent, NextComponents } = getComponentByObject(object)
+                    return <>
+                        {CurrentComponent}
+                        {NextComponents}
+                    </>
                 })}
             </Layer>
         </Stage>
