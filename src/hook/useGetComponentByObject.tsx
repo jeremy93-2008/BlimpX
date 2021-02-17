@@ -12,10 +12,10 @@ const getAttrs = (params: IBlimpParams | null) => {
 }
 
 const getOnionComponents = (Component: KonvaNodeComponent<any, any>, currentFrame: number, frame: IBlimpFrame) => {
-    const opacityNumber = Math.abs((frame.frame / (currentFrame || 1)) - 0.3);
+    const opacityNumber = Math.abs((frame.frame / (currentFrame || 1)) - 0.3) || 0.1;
     const isPrevFrame = frame.frame < currentFrame;
     return <Component key={frame._id} {...getAttrs(frame.params)}
-                      opacity={opacityNumber} />
+                      opacity={opacityNumber} stroke={isPrevFrame ? "green" : "purple"} />
 }
 
 export function useGetComponentByObject(store: IBlimpState) {

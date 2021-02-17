@@ -58,7 +58,7 @@ export const mockLayers: IBlimpLayer[] = [
                         params: {
                             x: 150,
                             y: 80,
-                            width: 100,
+                            radius: 50,
                             stroke: "blue",
                             strokeWidth: 2
                         }
@@ -69,7 +69,7 @@ export const mockLayers: IBlimpLayer[] = [
                         params: {
                             x: 150,
                             y: 100,
-                            width: 100,
+                            radius: 50,
                             stroke: "blue",
                             strokeWidth: 2
                         }
