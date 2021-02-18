@@ -7,6 +7,7 @@ export const blimpStore: IBlimpState = {
     name: "Untitled",
     currentFrame: 0,
     currentLayer: 0,
+    frameWidth: 11,
     layers: (process.env.NODE_ENV) ? mockLayers : [],
     timeline: {
         scroll: {

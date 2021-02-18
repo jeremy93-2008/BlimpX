@@ -1,7 +1,7 @@
 import React from "react";
 import {useCallback} from "react";
-import {IBlimpFrame, IBlimpObjectRender, IBlimpParams, IBlimpState} from "../blimpx.typing";
 import {Circle, Image, KonvaNodeComponent, Path, Rect, Text} from "react-konva";
+import {IBlimpFrame, IBlimpObjectRender, IBlimpParams, IBlimpState} from "../blimpx.typing";
 import {CircleConfig} from "konva/types/shapes/Circle";
 import {PathConfig} from "konva/types/shapes/Path";
 import {ImageConfig} from "konva/types/shapes/Image";
@@ -11,11 +11,21 @@ const getAttrs = (params: IBlimpParams | null) => {
     return {...params};
 }
 
+const getOpacityNumber = (defaultValue: number, frame: IBlimpFrame, currentFrame: number) => {
+    const currentFrameBasedOne = currentFrame + 1;
+    const frameBasedOne = frame.frame + 1;
+    const firstFrameNumber = Math.min(currentFrameBasedOne, frameBasedOne)
+    const secondFrameNumber = Math.max(currentFrameBasedOne, frameBasedOne)
+    const original = (firstFrameNumber / secondFrameNumber) * 0.5
+    console.log(original)
+    return original
+}
+
 const getOnionComponents = (Component: KonvaNodeComponent<any, any>, currentFrame: number, frame: IBlimpFrame) => {
-    const opacityNumber = Math.abs((frame.frame / (currentFrame || 1)) - 0.3) || 0.1;
+    const opacityNumber = getOpacityNumber(0.2, frame, currentFrame)
     const isPrevFrame = frame.frame < currentFrame;
     return <Component key={frame._id} {...getAttrs(frame.params)}
-                      opacity={opacityNumber} stroke={isPrevFrame ? "green" : "purple"} />
+                      opacity={opacityNumber} stroke={isPrevFrame ? "green" : "red"} />
 }
 
 export function useGetComponentByObject(store: IBlimpState) {

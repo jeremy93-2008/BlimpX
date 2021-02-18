@@ -74,6 +74,18 @@ export const mockLayers: IBlimpLayer[] = [
                             strokeWidth: 2
                         }
                     }
+                    ,
+                    {
+                        _id: uuidv4(),
+                        frame: 2,
+                        params: {
+                            x: 180,
+                            y: 120,
+                            radius: 50,
+                            stroke: "blue",
+                            strokeWidth: 2
+                        }
+                    }
                 ]
             }
         ]

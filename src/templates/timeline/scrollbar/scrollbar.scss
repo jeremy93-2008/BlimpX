@@ -1,0 +1,21 @@
+.scrollbar-container {
+  display: flex;
+  position: relative;
+  background: #333333;
+  border-top: solid 1px gray;
+  height: 16px;
+  z-index: 5;
+
+  .scrollbar-layer {
+    flex: 1;
+    min-width: 0;
+    padding-right: 12px;
+    border-right: solid 1px gray;
+  }
+
+  .scrollbar-frame {
+    flex: 6;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+}

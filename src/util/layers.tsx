@@ -24,13 +24,12 @@ export const useWidthLayer = (layersRef: React.RefObject<HTMLElement>,
     return null;
 }
 
-export const frameWidth = 11;
 
 export const getLayersByWidth = (name: layersType, store: IBlimpState, layersWidth: number, layerIdx?: number) => {
     let layersWidthDOM = layersWidth;
     return [...new Array(store.timeline.maxTimeline)].map((_s, idx) => {
-        if(layersWidthDOM < frameWidth) return;
-        layersWidthDOM -= frameWidth;
+        if(layersWidthDOM < store.frameWidth) return;
+        layersWidthDOM -= store.frameWidth;
         if(name == "header")
             return getHeaderLayers(store, idx)
         if(name == "frames" && layerIdx != undefined)
@@ -46,7 +45,7 @@ const getHeaderLayers = (store: IBlimpState, idx: number) => {
     return (<div className={`line-container ${isFrameShown ? "onion" : ""}`} key={idx}>
         <div className={`line ${idx % store.fps == 0 ? "second" : ""}`}/>
         {idx > 0 && idx % store.fps == 0 ?
-            <div className="timespan" style={{left: frameWidth * idx}}>{idx / store.fps}s</div> : ""}
+            <div className="timespan" style={{left: store.frameWidth * idx}}>{idx / store.fps}s</div> : ""}
     </div>)
 }
 

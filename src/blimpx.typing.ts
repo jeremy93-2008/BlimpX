@@ -15,6 +15,7 @@ export interface IBlimpState {
     name: string;
     currentFrame: number;
     currentLayer: number;
+    frameWidth: number;
     layers: IBlimpLayer[];
     timeline: IBlimpTimeline;
     fps: number;
@@ -56,7 +57,7 @@ export interface IBlimpObject {
 
 export interface IBlimpFrame {
     _id: string;
-    frame: number;
+     frame: number;
     params: IBlimpParams
 }
 
