@@ -60,10 +60,12 @@ function onCursorUp(evt: MouseEvent, param: IWindowMoveParams) {
 
 function onThumbMove(evt: MouseEvent, param: IWindowMoveParams) {
     const {layerRef, setStore, store, cursorRef} = param;
+    const widthTimeline = layerRef.current!.offsetWidth - cursorRef.current!.offsetWidth + 1;
     const header = layerRef.current!.getBoundingClientRect().x;
     const cursor = evt.clientX;
-    const newX = cursor - header - (cursorRef.current!.offsetWidth / 2)
-    if (newX < -1 || newX > (layerRef.current!.offsetWidth - cursorRef.current!.offsetWidth + 1)) return;
+    let newX = cursor - header - (cursorRef.current!.offsetWidth / 2)
+    if (newX < -1) newX = 0;
+    if (newX > widthTimeline) newX = widthTimeline
     setStore({
         type: "setTimeline", state: {
             timeline: {
