@@ -12,9 +12,9 @@ export const useWidthLayer = (layersRef: React.RefObject<HTMLElement>,
 
     useEffect(() => {
         setLayersWidthFromRef()
-        window.onresize = () => {
+        window.addEventListener("resize", () => {
             setLayersWidthFromRef()
-        }
+        })
     }, [])
 
     useEffect(() => {
@@ -26,26 +26,29 @@ export const useWidthLayer = (layersRef: React.RefObject<HTMLElement>,
 
 
 export const getLayersByWidth = (name: layersType, store: IBlimpState, layersWidth: number, layerIdx?: number) => {
+    const {timeline} = store;
     let layersWidthDOM = layersWidth;
     return [...new Array(store.timeline.maxTimeline)].map((_s, idx) => {
-        if(layersWidthDOM < store.frameWidth) return;
+        if (layersWidthDOM < store.frameWidth) return;
+        if (timeline.scroll.x > idx * store.frameWidth) return;
         layersWidthDOM -= store.frameWidth;
-        if(name == "header")
+        if (name == "header")
             return getHeaderLayers(store, idx)
-        if(name == "frames" && layerIdx != undefined)
+        if (name == "frames" && layerIdx != undefined)
             return getFrameLayers(store.layers[layerIdx], idx)
         return null;
     });
 }
 
 const getHeaderLayers = (store: IBlimpState, idx: number) => {
-    const { currentFrame } = store;
-    const { onionLayersShown } = store.timeline;
+    const {currentFrame, timeline} = store;
+    const {onionLayersShown} = store.timeline;
     const isFrameShown = idx <= currentFrame + onionLayersShown && idx >= currentFrame - onionLayersShown;
     return (<div className={`line-container ${isFrameShown ? "onion" : ""}`} key={idx}>
         <div className={`line ${idx % store.fps == 0 ? "second" : ""}`}/>
         {idx > 0 && idx % store.fps == 0 ?
-            <div className="timespan" style={{left: store.frameWidth * idx}}>{idx / store.fps}s</div> : ""}
+            <div className="timespan"
+                 style={{left: store.frameWidth * idx - timeline.scroll.x}}>{idx / store.fps}s</div> : ""}
     </div>)
 }
 

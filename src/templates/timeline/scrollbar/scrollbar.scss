@@ -14,8 +14,17 @@
   }
 
   .scrollbar-frame {
+    position: relative;
     flex: 6;
     min-width: 0;
     box-sizing: border-box;
+
+    .thumb-container {
+      position: absolute;
+      background: #666;
+      border-radius: 5px;
+      width: 16px;
+      height: 16px;
+    }
   }
 }

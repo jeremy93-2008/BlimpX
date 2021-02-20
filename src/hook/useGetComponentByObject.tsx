@@ -17,7 +17,6 @@ const getOpacityNumber = (defaultValue: number, frame: IBlimpFrame, currentFrame
     const firstFrameNumber = Math.min(currentFrameBasedOne, frameBasedOne)
     const secondFrameNumber = Math.max(currentFrameBasedOne, frameBasedOne)
     const original = (firstFrameNumber / secondFrameNumber) * 0.5
-    console.log(original)
     return original
 }
 
