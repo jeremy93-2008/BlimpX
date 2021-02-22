@@ -1,5 +1,10 @@
+@import "../../../../../sass/variable";
+
 .title-layer-container {
   display: flex;
+  background-color: $bgBlackColor;
+  position: relative;
+  z-index: 10;
   align-items: center;
   justify-content: space-between;
   color: white;

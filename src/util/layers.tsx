@@ -28,19 +28,20 @@ export const useWidthLayer = (layersRef: React.RefObject<HTMLElement>,
 export const getLayersByWidth = (name: layersType, store: IBlimpState, layersWidth: number, layerIdx?: number) => {
     const {timeline} = store;
     let layersWidthDOM = layersWidth;
+    const xForLayer = (timeline.scroll.x * (timeline.maxTimeline * store.frameWidth)) / layersWidth
     return [...new Array(store.timeline.maxTimeline)].map((_s, idx) => {
         if (layersWidthDOM < store.frameWidth) return;
-        if (timeline.scroll.x > idx * store.frameWidth) return;
+        if ((xForLayer) > idx * store.frameWidth) return;
         layersWidthDOM -= store.frameWidth;
         if (name == "header")
-            return getHeaderLayers(store, idx)
+            return getHeaderLayers(store, idx, xForLayer)
         if (name == "frames" && layerIdx != undefined)
             return getFrameLayers(store.layers[layerIdx], idx)
         return null;
     });
 }
 
-const getHeaderLayers = (store: IBlimpState, idx: number) => {
+const getHeaderLayers = (store: IBlimpState, idx: number, xForLayer: number) => {
     const {currentFrame, timeline} = store;
     const {onionLayersShown} = store.timeline;
     const isFrameShown = idx <= currentFrame + onionLayersShown && idx >= currentFrame - onionLayersShown;
@@ -48,7 +49,7 @@ const getHeaderLayers = (store: IBlimpState, idx: number) => {
         <div className={`line ${idx % store.fps == 0 ? "second" : ""}`}/>
         {idx > 0 && idx % store.fps == 0 ?
             <div className="timespan"
-                 style={{left: store.frameWidth * idx - timeline.scroll.x}}>{idx / store.fps}s</div> : ""}
+                 style={{left: store.frameWidth * idx - (xForLayer)}}>{idx / store.fps}s</div> : ""}
     </div>)
 }
 

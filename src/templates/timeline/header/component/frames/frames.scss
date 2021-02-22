@@ -1,5 +1,10 @@
+@import "../../../../../sass/variable";
+
 .header-frames-container {
   display: flex;
+  background-color: $bgBlackColor;
+  position: relative;
+  z-index: 10;
   flex: 1;
   min-width: 0;
   color: white;

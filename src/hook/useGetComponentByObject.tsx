@@ -16,8 +16,7 @@ const getOpacityNumber = (defaultValue: number, frame: IBlimpFrame, currentFrame
     const frameBasedOne = frame.frame + 1;
     const firstFrameNumber = Math.min(currentFrameBasedOne, frameBasedOne)
     const secondFrameNumber = Math.max(currentFrameBasedOne, frameBasedOne)
-    const original = (firstFrameNumber / secondFrameNumber) * 0.5
-    return original
+    return (firstFrameNumber / secondFrameNumber) * 0.5
 }
 
 const getOnionComponents = (Component: KonvaNodeComponent<any, any>, currentFrame: number, frame: IBlimpFrame) => {

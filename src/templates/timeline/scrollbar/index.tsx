@@ -36,7 +36,10 @@ export function ScrollBar() {
     useEffect(() => {
         if (!refFrame.current) return;
         const timelineWidth = refFrame.current!.offsetWidth;
-        setThumbWidth(timelineWidth / store.frameWidth)
+        const framesVisible = refFrame.current!.offsetWidth / store.frameWidth;
+        const framesTotal = store.timeline.maxTimeline;
+        const thumbWidth = (timelineWidth * framesVisible) / framesTotal;
+        setThumbWidth(thumbWidth)
     }, [])
 
     return (
