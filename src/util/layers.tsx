@@ -28,13 +28,12 @@ export const useWidthLayer = (layersRef: React.RefObject<HTMLElement>,
 export const getLayersByWidth = (name: layersType, store: IBlimpState, layersWidth: number, layerIdx?: number) => {
     const {timeline} = store;
     let layersWidthDOM = layersWidth;
-    const xForLayer = (timeline.scroll.x * (timeline.maxTimeline * store.frameWidth)) / layersWidth
     return [...new Array(store.timeline.maxTimeline)].map((_s, idx) => {
         if (layersWidthDOM < store.frameWidth) return;
-        if ((xForLayer) > idx * store.frameWidth) return;
+        if ((timeline.scroll.xFrame) > idx * store.frameWidth) return;
         layersWidthDOM -= store.frameWidth;
         if (name == "header")
-            return getHeaderLayers(store, idx, xForLayer)
+            return getHeaderLayers(store, idx, timeline.scroll.xFrame)
         if (name == "frames" && layerIdx != undefined)
             return getFrameLayers(store.layers[layerIdx], idx)
         return null;

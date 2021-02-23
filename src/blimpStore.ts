@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from 'uuid';
-import {IBlimpXAction, IBlimpState} from "./blimpx.typing";
+import {v4 as uuidv4} from 'uuid';
+import {IBlimpState, IBlimpXAction} from "./blimpx.typing";
 import {mockLayers} from "../test/mockLayers";
 
 export const blimpStore: IBlimpState = {
@@ -12,7 +12,9 @@ export const blimpStore: IBlimpState = {
     timeline: {
         scroll: {
             x: 0,
-            y: 0
+            xFrame: 0,
+            y: 0,
+            yFrame: 0
         },
         onionLayersShown: 2,
         timer: 0,
@@ -29,7 +31,7 @@ export const blimpStore: IBlimpState = {
 };
 
 export const blimpActions = (state: IBlimpState, action: IBlimpXAction): IBlimpState => {
-    switch(action.type) {
+    switch (action.type) {
         case "setName":
             return {...state, name: action.state.name!};
         case "setUser":

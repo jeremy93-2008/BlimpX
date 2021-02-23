@@ -24,7 +24,9 @@ export interface IBlimpState {
 
 export type IScrollTimeline = {
     x: number;
+    xFrame: number;
     y: number;
+    yFrame: number;
 };
 
 export interface IBlimpTimeline {
@@ -57,7 +59,7 @@ export interface IBlimpObject {
 
 export interface IBlimpFrame {
     _id: string;
-     frame: number;
+    frame: number;
     params: IBlimpParams
 }
 

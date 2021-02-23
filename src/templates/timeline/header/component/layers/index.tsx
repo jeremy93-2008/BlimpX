@@ -7,7 +7,7 @@ import {Cursor} from "../cursor";
 import {onWindowCursorMove} from "../../../../../util/window";
 
 export function HeaderLayers() {
-    const [ store, setStore ] = useContext(BlimpContext);
+    const [store, setStore] = useContext(BlimpContext);
     const [isCursorMoving, setCursorMoving] = useState(false);
     const cursorRef = useRef<HTMLDivElement>(null);
 
@@ -15,12 +15,12 @@ export function HeaderLayers() {
     const [layersWidth, setLayersWidth] = useState(0);
 
     const onCursorDown = useCallback((evt: MouseEvt<HTMLDivElement, MouseEvent>) => {
-        if(evt.buttons == 2 || isCursorMoving) return;
+        if (evt.buttons == 2 || isCursorMoving) return;
         setCursorMoving(true)
     }, []);
 
     useEffect(() => {
-        if(!isCursorMoving) return;
+        if (!isCursorMoving) return;
         const removeEventListener = onWindowCursorMove(
             {
                 isCursorMoving,
@@ -38,12 +38,15 @@ export function HeaderLayers() {
 
     useWidthLayer(layerRef, setLayersWidth, store)
 
+    console.log(store.timeline.scroll.xFrame)
+
     return (
         <div ref={layerRef} className="layers-header-container">
             <Cursor
                 refCursor={cursorRef}
                 frame={store.currentFrame}
                 onMouseDown={onCursorDown}
+                xFrame={store.timeline.scroll.xFrame}
             />
             {getLayersByWidth("header", store, layersWidth)}
         </div>

@@ -60,19 +60,32 @@ function onCursorUp(evt: MouseEvent, param: IWindowMoveParams) {
 
 function onThumbMove(evt: MouseEvent, param: IWindowMoveParams) {
     const {layerRef, setStore, store, cursorRef} = param;
+    const maxFrameScrollable = (store.timeline.maxTimeline * store.frameWidth)
+        - layerRef.current!.offsetWidth - cursorRef.current!.offsetWidth
     const widthTimeline = layerRef.current!.offsetWidth - cursorRef.current!.offsetWidth + 1;
     const header = layerRef.current!.getBoundingClientRect().x;
     const cursor = evt.clientX;
+
     let newX = cursor - header - (cursorRef.current!.offsetWidth / 2)
     if (newX < -1) newX = 0;
     if (newX > widthTimeline) newX = widthTimeline
+
+    let newXFrame = Math.trunc(((cursor - header - (cursorRef.current!.offsetWidth / 2))
+        * (store.timeline.maxTimeline * store.frameWidth))
+        / layerRef.current!.offsetWidth)
+    if (newXFrame < -1) newXFrame = 0;
+    if (newX == widthTimeline)
+        newXFrame = maxFrameScrollable
+
     setStore({
         type: "setTimeline", state: {
             timeline: {
                 ...store.timeline,
                 scroll: {
                     x: newX,
-                    y: store.timeline.scroll.y
+                    xFrame: newXFrame,
+                    y: store.timeline.scroll.y,
+                    yFrame: store.timeline.scroll.yFrame
                 }
             }
         }
