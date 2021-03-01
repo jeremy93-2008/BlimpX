@@ -30,7 +30,7 @@ export const getLayersByWidth = (name: layersType, store: IBlimpState, layersWid
     let layersWidthDOM = layersWidth;
     return [...new Array(store.timeline.maxTimeline)].map((_s, idx) => {
         if (layersWidthDOM < store.frameWidth) return;
-        if ((timeline.scroll.xFrame) > idx * store.frameWidth) return;
+        if ((timeline.scroll.xFrame * store.frameWidth) > idx * store.frameWidth) return;
         layersWidthDOM -= store.frameWidth;
         if (name == "header")
             return getHeaderLayers(store, idx, timeline.scroll.xFrame)
@@ -48,7 +48,7 @@ const getHeaderLayers = (store: IBlimpState, idx: number, xForLayer: number) => 
         <div className={`line ${idx % store.fps == 0 ? "second" : ""}`}/>
         {idx > 0 && idx % store.fps == 0 ?
             <div className="timespan"
-                 style={{left: store.frameWidth * idx - (xForLayer)}}>{idx / store.fps}s</div> : ""}
+                 style={{left: store.frameWidth * idx - (xForLayer * store.frameWidth)}}>{idx / store.fps}s</div> : ""}
     </div>)
 }
 

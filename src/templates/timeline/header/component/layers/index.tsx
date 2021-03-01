@@ -38,15 +38,13 @@ export function HeaderLayers() {
 
     useWidthLayer(layerRef, setLayersWidth, store)
 
-    console.log(store.timeline.scroll.xFrame)
-
     return (
         <div ref={layerRef} className="layers-header-container">
             <Cursor
                 refCursor={cursorRef}
                 frame={store.currentFrame}
                 onMouseDown={onCursorDown}
-                xFrame={store.timeline.scroll.xFrame}
+                xFrame={store.timeline.scroll.xFrame * store.frameWidth}
             />
             {getLayersByWidth("header", store, layersWidth)}
         </div>

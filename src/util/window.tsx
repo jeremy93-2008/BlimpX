@@ -39,9 +39,11 @@ function onWindowBaseMove(param: IWindowMoveParams,
 
 function onCursorMove(evt: MouseEvent, param: IWindowMoveParams) {
     const {layerRef, setStore, store} = param;
+    const { timeline } = store;
     const header = layerRef.current!.getBoundingClientRect().x;
     const cursor = evt.clientX;
-    let newCurrentFrame = Math.trunc((cursor - header) / store.frameWidth);
+    const xFrameWidth = (timeline.scroll.xFrame * store.frameWidth);
+    let newCurrentFrame = Math.trunc(((cursor - header) + xFrameWidth) / store.frameWidth);
     if (newCurrentFrame == store.currentFrame) return;
     if (newCurrentFrame <= 0) newCurrentFrame = 0;
     setStore({
@@ -60,8 +62,8 @@ function onCursorUp(evt: MouseEvent, param: IWindowMoveParams) {
 
 function onThumbMove(evt: MouseEvent, param: IWindowMoveParams) {
     const {layerRef, setStore, store, cursorRef} = param;
-    const maxFrameScrollable = (store.timeline.maxTimeline * store.frameWidth)
-        - layerRef.current!.offsetWidth - cursorRef.current!.offsetWidth
+    const maxFrameScrollable = store.timeline.maxTimeline
+        - (layerRef.current!.offsetWidth / store.frameWidth) - (cursorRef.current!.offsetWidth / store.frameWidth)
     const widthTimeline = layerRef.current!.offsetWidth - cursorRef.current!.offsetWidth + 1;
     const header = layerRef.current!.getBoundingClientRect().x;
     const cursor = evt.clientX;
@@ -70,9 +72,7 @@ function onThumbMove(evt: MouseEvent, param: IWindowMoveParams) {
     if (newX < -1) newX = 0;
     if (newX > widthTimeline) newX = widthTimeline
 
-    let newXFrame = Math.trunc(((cursor - header - (cursorRef.current!.offsetWidth / 2))
-        * (store.timeline.maxTimeline * store.frameWidth))
-        / layerRef.current!.offsetWidth)
+    let newXFrame = Math.trunc((newX * store.timeline.maxTimeline) / layerRef.current!.offsetWidth)
     if (newXFrame < -1) newXFrame = 0;
     if (newX == widthTimeline)
         newXFrame = maxFrameScrollable
