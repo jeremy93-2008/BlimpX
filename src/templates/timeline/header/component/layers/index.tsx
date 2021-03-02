@@ -44,7 +44,7 @@ export function HeaderLayers() {
                 refCursor={cursorRef}
                 frame={store.currentFrame}
                 onMouseDown={onCursorDown}
-                xFrame={store.timeline.scroll.xFrame * store.frameWidth}
+                xFrame={store.timeline.scroll.xFrame}
             />
             {getLayersByWidth("header", store, layersWidth)}
         </div>

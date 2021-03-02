@@ -1,4 +1,4 @@
-import React, {MouseEvent as MouseEvt, useContext} from "react";
+import React, {MouseEvent as MouseEvt, useContext, useEffect, useState} from "react";
 
 import "./cursor.scss";
 import {BlimpContext} from "../../../../../blimpx";
@@ -11,14 +11,21 @@ interface ICursorProps {
 }
 
 export function Cursor(props: ICursorProps) {
-    const {frame, onMouseDown, refCursor, xFrame} = props;
+    const {frame: frameCursor, onMouseDown, refCursor, xFrame} = props;
     const [context] = useContext(BlimpContext)
+    const [isCursorVisible, setCursorVisible] = useState(true)
+
+    useEffect(() => {
+        setCursorVisible(xFrame <= frameCursor)
+    }, [context])
 
     return (
         <div ref={refCursor}
              className="cursor-container"
              style={{
-                 left: ((frame * context.frameWidth - xFrame) + (context.frameWidth / 2))
+                 left: ((frameCursor * context.frameWidth
+                     - (xFrame * context.frameWidth)) + (context.frameWidth / 2)),
+                 display: isCursorVisible ? "block" : "none"
              }}>
             <div onMouseDown={onMouseDown} className="cursor-header"/>
         </div>
