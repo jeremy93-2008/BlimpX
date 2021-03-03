@@ -1,12 +1,12 @@
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect} from "react";
 import {FaFastBackward, FaFastForward, FaPause, FaPlay} from "react-icons/fa";
 
 import "./playcontrol.scss";
 import {BlimpContext} from "../../../../../blimpx";
+import {IconType} from "react-icons";
 
 export function PlayControl() {
     const [store, setStore] = useContext(BlimpContext)
-    const [isPlaying, setPlaying] = useState(false)
 
     const maxFrameTimeline = useCallback(() => {
         let maxTimeline = 0
@@ -18,33 +18,34 @@ export function PlayControl() {
         return maxTimeline;
     }, [store])
 
-    const onFrameChange = useCallback((newCurrentFrame: number, endFrame: number) => {
+    const onFrameChange = useCallback((newCurrentFrame: number, endFrame: number, reload?: boolean) => {
         if (newCurrentFrame < 0) newCurrentFrame = 0
-        if (newCurrentFrame > endFrame) newCurrentFrame = endFrame
+        if (newCurrentFrame > endFrame) newCurrentFrame = reload ? 0 : endFrame
         setStore({type: "setCurrentFrame", state: {currentFrame: newCurrentFrame}})
     }, [store])
 
-    useEffect(() => {
-        if (!isPlaying) return
-        const intervalPlaying = window.setInterval(() => {
-            onFrameChange(store.currentFrame + 1, maxFrameTimeline())
-        }, 1000 / store.fps)
+    const PlayButton = useCallback((Component: IconType, isPlaying: boolean) => {
+        return <Component onClick={() => {
+            setStore({type: "setPlaying", state: {...store, isPlaying}})
+        }}/>
+    }, [])
 
+    useEffect(() => {
+        if (!store.isPlaying) return
+        const intervalPlaying = window.setInterval(() => {
+            onFrameChange(store.currentFrame + 1, maxFrameTimeline(), true)
+        }, 1000 / store.fps)
         return () => {
             clearInterval(intervalPlaying)
         }
-    }, [isPlaying, store])
+    }, [store])
 
     return (
         <div className="playcontrol-container">
             <FaFastBackward onClick={() =>
                 onFrameChange(store.currentFrame - 1, store.timeline.maxTimeline)}
             />
-            {isPlaying ? <FaPause onClick={() => {
-                setPlaying(false)
-            }}/> : <FaPlay onClick={() => {
-                setPlaying(true)
-            }}/>}
+            {PlayButton(store.isPlaying ? FaPause : FaPlay, !store.isPlaying)}
             <FaFastForward onClick={() =>
                 onFrameChange(store.currentFrame + 1, store.timeline.maxTimeline)}
             />

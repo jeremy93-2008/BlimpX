@@ -5,7 +5,7 @@ import {TextConfig} from "konva/types/shapes/Text";
 import {PathConfig} from "konva/types/shapes/Path";
 
 export interface IBlimpXAction {
-    type: "setUser" | "setLayer" |
+    type: "setUser" | "setLayer" | "setPlaying" |
         "setTimeline" | "setName" | "setFps" | "setCurrentFrame";
     state: Partial<IBlimpState>;
 }
@@ -18,6 +18,7 @@ export interface IBlimpState {
     frameWidth: number;
     layers: IBlimpLayer[];
     timeline: IBlimpTimeline;
+    isPlaying: boolean;
     fps: number;
     user: IBlimpUser;
 }

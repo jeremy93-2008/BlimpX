@@ -25,7 +25,8 @@ export function Cursor(props: ICursorProps) {
              style={{
                  left: ((frameCursor * context.frameWidth
                      - (xFrame * context.frameWidth)) + (context.frameWidth / 2)),
-                 display: isCursorVisible ? "block" : "none"
+                 display: isCursorVisible ? "block" : "none",
+                 pointerEvents: context.isPlaying ? "none" : "auto"
              }}>
             <div onMouseDown={onMouseDown} className="cursor-header"/>
         </div>

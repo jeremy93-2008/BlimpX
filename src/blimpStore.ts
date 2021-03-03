@@ -23,6 +23,7 @@ export const blimpStore: IBlimpState = {
         selectedElements: [],
         zoom: 0
     },
+    isPlaying: false,
     fps: 24,
     user: {
         name: "",
@@ -38,6 +39,8 @@ export const blimpActions = (state: IBlimpState, action: IBlimpXAction): IBlimpS
             return {...state, user: action.state.user!};
         case "setFps":
             return {...state, fps: action.state.fps!};
+        case "setPlaying":
+            return {...state, isPlaying: action.state.isPlaying!};
         case "setCurrentFrame":
             return {...state, currentFrame: action.state.currentFrame!};
         case "setLayer":
