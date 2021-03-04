@@ -1,4 +1,4 @@
-export function pad(n: number, z?: number) {
-    z = z || 2;
-    return ('00' + n).slice(-z);
+export function pad(number: number, precision?: number) {
+    const precisionSanity = precision || 2;
+    return `${Math.trunc(number)}`.padStart(precisionSanity, "0")
 }
