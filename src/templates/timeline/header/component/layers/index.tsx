@@ -7,7 +7,8 @@ import {Cursor} from "../cursor";
 import {onWindowCursorMove} from "../../../../../util/window";
 
 export function HeaderLayers() {
-    const [store, setStore] = useContext(BlimpContext);
+    const blimpContext = useContext(BlimpContext);
+    const [store, setStore] = blimpContext;
     const [isCursorMoving, setCursorMoving] = useState(false);
     const cursorRef = useRef<HTMLDivElement>(null);
 
@@ -36,7 +37,7 @@ export function HeaderLayers() {
         }
     }, [isCursorMoving]);
 
-    useWidthLayer(layerRef, setLayersWidth, store)
+    useWidthLayer(layerRef, setLayersWidth)
 
     return (
         <div ref={layerRef} className="layers-header-container">
@@ -46,7 +47,7 @@ export function HeaderLayers() {
                 onMouseDown={onCursorDown}
                 xFrame={store.timeline.scroll.xFrame}
             />
-            {getLayersByWidth("header", store, layersWidth)}
+            {getLayersByWidth("header", blimpContext, layersWidth)}
         </div>
     )
 }
