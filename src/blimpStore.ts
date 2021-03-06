@@ -25,6 +25,7 @@ export const blimpStore: IBlimpState = {
     },
     isPlaying: false,
     fps: 24,
+    mode: "Default",
     user: {
         name: "",
         imageURL: ""
@@ -41,6 +42,8 @@ export const blimpActions = (state: IBlimpState, action: IBlimpXAction): IBlimpS
             return {...state, fps: action.state.fps!};
         case "setPlaying":
             return {...state, isPlaying: action.state.isPlaying!};
+        case "setMode":
+            return {...state, mode: action.state.mode!};
         case "setCurrentFrame":
             return {...state, currentFrame: action.state.currentFrame!};
         case "setLayer":

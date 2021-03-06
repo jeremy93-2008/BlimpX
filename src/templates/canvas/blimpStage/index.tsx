@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {Layer, Rect, Stage, Text} from "react-konva";
+import {Layer, Stage} from "react-konva";
 
 import "./stage.scss";
 import {BlimpContext} from "../../../blimpx";
@@ -13,17 +13,18 @@ interface IBlimpStageProps {
 
 export function BlimpStage(props: IBlimpStageProps) {
     const {width, height} = props;
-    const [store] = useContext(BlimpContext)
+    const context = useContext(BlimpContext)
+    const [store] = context
 
     const getObjectByFrame = useGetObjectByFrame(store)
-    const getComponentByObject = useGetComponentByObject(store)
+    const getComponentByObject = useGetComponentByObject(context)
 
     return (
         <Stage width={width} height={height} className="konva-stage-container">
             <Layer>
                 {getObjectByFrame(store.currentFrame).map(object => {
                     if (!object) return;
-                    const { CurrentComponent, NextComponents } = getComponentByObject(object)
+                    const {CurrentComponent, NextComponents} = getComponentByObject(object)
                     return <>
                         {CurrentComponent}
                         {NextComponents}

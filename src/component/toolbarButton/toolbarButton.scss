@@ -1,4 +1,17 @@
 .toolbar-button {
   cursor: pointer;
   margin: 0 22px;
+  padding-top: 5px;
+  box-sizing: border-box;
+
+  &.active {
+    background-color: #666;
+    padding: 8px 10px;
+    margin: 0 12px 0 22px;
+    border-radius: 5px;
+
+    svg {
+      padding-top: 2px;
+    }
+  }
 }
