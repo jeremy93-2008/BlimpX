@@ -18,7 +18,6 @@ export function Timer() {
 
     useMemo(() => {
         const timer = (store.currentFrame / store.fps) * 1000
-        console.log(timer)
         if (store.timeline.timer == timer) return;
         setStore({
             type: "setTimeline",
