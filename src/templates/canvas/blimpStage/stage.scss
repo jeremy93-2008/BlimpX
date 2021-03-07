@@ -1,4 +1,8 @@
-.konva-stage-container  {
+.konva-stage-container {
   background: white;
   box-shadow: 2px 6px 10px #666666;
+
+  &.create {
+    cursor: crosshair;
+  }
 }

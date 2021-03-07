@@ -43,7 +43,10 @@ function getComponentByType(context: IBlimpContext, obj: IBlimpObjectRender) {
     const {currentFrame, nextFrames} = obj.frames
     const currentParams = currentFrame ? currentFrame.params : {};
 
-    const onDragEnd = useCallback((obj: IBlimpObjectRender, e: KonvaEventObject<DragEvent>) => {
+    const isDefaultMode = store.mode === "Default";
+
+    const onDragEnd = (obj: IBlimpObjectRender, e: KonvaEventObject<DragEvent>) => {
+        if (store.mode !== "Default") return;
         const newLayers = store.layers.map(layer => {
             return {
                 ...layer,
@@ -66,32 +69,32 @@ function getComponentByType(context: IBlimpContext, obj: IBlimpObjectRender) {
             type: "setLayer",
             state: {...store, layers: newLayers}
         })
-    }, [context])
+    }
 
     switch (obj.type) {
         case "Rectangle":
             return [currentFrame ?
-                <Rect draggable onDragEnd={(e) => onDragEnd(obj, e)}
+                <Rect draggable={isDefaultMode} onDragEnd={(e) => onDragEnd(obj, e)}
                       key={obj._id} {...getAttrs(currentParams)}/> : null,
                 nextFrames!.map(f => getOnionComponents(Rect, store.currentFrame, f))];
         case "Circle":
             return [currentFrame ?
-                <Circle draggable onDragEnd={(e) => onDragEnd(obj, e)}
+                <Circle draggable={isDefaultMode} onDragEnd={(e) => onDragEnd(obj, e)}
                         key={obj._id}  {...getAttrs(currentParams) as CircleConfig} /> : null,
                 nextFrames!.map(f => getOnionComponents(Circle, store.currentFrame, f))];
         case "Image":
             return [currentFrame ?
-                <Image draggable onDragEnd={(e) => onDragEnd(obj, e)}
+                <Image draggable={isDefaultMode} onDragEnd={(e) => onDragEnd(obj, e)}
                        key={obj._id} {...getAttrs(currentParams) as ImageConfig} /> : null,
                 nextFrames!.map(f => getOnionComponents(Image, store.currentFrame, f))];
         case "Text":
             return [currentFrame ?
-                <Text draggable onDragEnd={(e) => onDragEnd(obj, e)}
+                <Text draggable={isDefaultMode} onDragEnd={(e) => onDragEnd(obj, e)}
                       key={obj._id} {...getAttrs(currentParams)} /> : null,
                 nextFrames!.map(f => getOnionComponents(Text, store.currentFrame, f))];
         default:
             return [currentFrame ?
-                <Path draggable onDragEnd={(e) => onDragEnd(obj, e)}
+                <Path draggable={isDefaultMode} onDragEnd={(e) => onDragEnd(obj, e)}
                       key={obj._id} {...getAttrs(currentParams) as PathConfig} /> : null,
                 nextFrames!.map(f => getOnionComponents(Path, store.currentFrame, f))]
     }
