@@ -26,6 +26,7 @@ export function BlimpStage(props: IBlimpStageProps) {
     const onNewObject = useCallback((konvaEvt: KonvaEventObject<MouseEvent>) => {
         if (store.mode === "Default") return;
         console.log(konvaEvt)
+        const target = (konvaEvt.evt.target as unknown as HTMLCanvasElement).getBoundingClientRect();
         const newLayer = {
             ...store.layers[store.currentLayer],
             objects: [...store.layers[store.currentLayer].objects, {
@@ -36,8 +37,8 @@ export function BlimpStage(props: IBlimpStageProps) {
                         _id: uuidv4(),
                         frame: store.currentFrame,
                         params: {
-                            x: konvaEvt.evt.x - konvaEvt.target.x(),
-                            y: konvaEvt.evt.y - konvaEvt.target.y(),
+                            x: konvaEvt.evt.x - target.x,
+                            y: konvaEvt.evt.y - target.y,
                             stroke: "orange",
                             strokeWidth: 2,
                             width: 20,
