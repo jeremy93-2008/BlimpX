@@ -1,13 +1,11 @@
-import React, {useCallback, useContext} from "react";
-import {v4 as uuidv4} from 'uuid';
-import {Layer, Stage} from "react-konva";
+import React, {useCallback, useContext, useState} from "react";
+import {Circle, Layer, Path, Rect, Text, Image, Stage} from "react-konva";
 
 import "./stage.scss";
 import {BlimpContext} from "../../../blimpx";
 import {useGetObjectByFrame} from "../../../hook/useGetObjectByFrame";
 import {useGetComponentByObject} from "../../../hook/useGetComponentByObject";
 import Konva from "konva";
-import {IBlimpLayer} from "../../../blimpx.typing";
 import KonvaEventObject = Konva.KonvaEventObject;
 
 interface IBlimpStageProps {
@@ -19,11 +17,37 @@ export function BlimpStage(props: IBlimpStageProps) {
     const {width, height} = props;
     const context = useContext(BlimpContext)
     const [store, setStore] = context
+    const [drawComponent, setDrawComponent] = useState<JSX.Element | null>(null)
 
     const getObjectByFrame = useGetObjectByFrame(store)
     const getComponentByObject = useGetComponentByObject(context)
 
-    const onNewObject = useCallback((konvaEvt: KonvaEventObject<MouseEvent>) => {
+    const addNewDrawObject = useCallback((konvaEvt: KonvaEventObject<MouseEvent>) => {
+        const target = (konvaEvt.evt.target as unknown as HTMLCanvasElement).getBoundingClientRect();
+        const commonParam = {
+            x: konvaEvt.evt.x - target.x,
+            y: konvaEvt.evt.y - target.y,
+            stroke: "orange",
+            strokeWidth: 2,
+            width: 20,
+            height: 20,
+            radius: 20
+        }
+        switch(store.mode) {
+            case "Circle":
+                return setDrawComponent(<Circle {...commonParam} />)
+            case "Image":
+                return setDrawComponent(<Image image={new HTMLImageElement()} {...commonParam} />)
+            case "Path":
+                return setDrawComponent(<Path data="" {...commonParam} />)
+            case "Rectangle":
+                return setDrawComponent(<Rect  {...commonParam}/>)
+            case "Text":
+                return setDrawComponent(<Text {...commonParam} />)
+        }
+    }, [store])
+
+    /*const onNewObject = useCallback((konvaEvt: KonvaEventObject<MouseEvent>) => {
         if (store.mode === "Default") return;
         console.log(konvaEvt)
         const target = (konvaEvt.evt.target as unknown as HTMLCanvasElement).getBoundingClientRect();
@@ -58,10 +82,10 @@ export function BlimpStage(props: IBlimpStageProps) {
             }
         })
 
-    }, [store])
+    }, [store])*/
 
     return (
-        <Stage width={width} height={height} onClick={(evt) => onNewObject(evt)}
+        <Stage width={width} height={height} onMouseDown={addNewDrawObject}
                className={`konva-stage-container ${store.mode !== "Default" ? `create` : ""}`}>
             <Layer>
                 {getObjectByFrame(store.currentFrame).map(object => {
@@ -72,6 +96,7 @@ export function BlimpStage(props: IBlimpStageProps) {
                         {NextComponents}
                     </>
                 })}
+                {drawComponent}
             </Layer>
         </Stage>
     )
