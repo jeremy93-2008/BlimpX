@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import {IBlimpLayer} from "../src/blimpx.typing";
 
 export const mockLayers: IBlimpLayer[] = [
@@ -21,6 +21,7 @@ export const mockLayers: IBlimpLayer[] = [
                             y: 50,
                             width: 250,
                             height: 150,
+                            radius: 0,
                             stroke: "black",
                             strokeWidth: 2
                         }
@@ -33,6 +34,7 @@ export const mockLayers: IBlimpLayer[] = [
                             y: 55,
                             width: 250,
                             height: 150,
+                            radius: 0,
                             stroke: "black",
                             strokeWidth: 2
                         }

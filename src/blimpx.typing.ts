@@ -65,7 +65,7 @@ export interface IBlimpFrame {
     params: IBlimpParams
 }
 
-export type IBlimpParams = Partial<IKonvaParams>
+export type IBlimpParams = Partial<IKonvaParams> & { radius: number }
 
 export type IKonvaParams = RectConfig & CircleConfig & ImageConfig & TextConfig & PathConfig;
 

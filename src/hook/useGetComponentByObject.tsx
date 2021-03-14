@@ -41,7 +41,7 @@ export function useGetComponentByObject(context: IBlimpContext) {
 function getComponentByType(context: IBlimpContext, obj: IBlimpObjectRender) {
     const [store, setStore] = context
     const {currentFrame, nextFrames} = obj.frames
-    const currentParams = currentFrame ? currentFrame.params : {};
+    const currentParams = (currentFrame ? currentFrame.params : {}) as IBlimpParams;
 
     const isDefaultMode = store.mode === "Default";
 
