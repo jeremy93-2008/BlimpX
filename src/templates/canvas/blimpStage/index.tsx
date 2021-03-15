@@ -1,8 +1,8 @@
 import React, {useContext} from "react";
 import {Layer, Stage} from "react-konva";
 import {BlimpContext} from "../../../blimpx";
-import {useGetObjectByFrame} from "../../../hook/useGetObjectByFrame";
-import {useGetComponentByObject} from "../../../hook/useGetComponentByObject";
+import {useGetObjectByFrame} from "./hook/useGetObjectByFrame";
+import {useGetComponentByObject} from "./hook/useGetComponentByObject";
 import "./stage.scss";
 import {useDrawComponent} from "./hook/useDrawComponent";
 

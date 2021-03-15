@@ -1,10 +1,10 @@
 import React, {useCallback} from "react";
 import {Circle, Image, KonvaNodeComponent, Path, Rect, Text} from "react-konva";
-import {IBlimpFrame, IBlimpObjectRender, IBlimpParams} from "../blimpx.typing";
+import {IBlimpFrame, IBlimpObjectRender, IBlimpParams} from "../../../../blimpx.typing";
 import {CircleConfig} from "konva/types/shapes/Circle";
 import {PathConfig} from "konva/types/shapes/Path";
 import {ImageConfig} from "konva/types/shapes/Image";
-import {IBlimpContext} from "../blimpx";
+import {IBlimpContext} from "../../../../blimpx";
 import Konva from "konva";
 import KonvaEventObject = Konva.KonvaEventObject;
 

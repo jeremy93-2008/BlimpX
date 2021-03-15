@@ -1,5 +1,5 @@
 import {useCallback} from "react";
-import {IBlimpObjectRender, IBlimpState} from "../blimpx.typing";
+import {IBlimpObjectRender, IBlimpState} from "../../../../blimpx.typing";
 
 export function useGetObjectByFrame(store: IBlimpState) {
     return useCallback((frame: number) => {
