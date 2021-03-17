@@ -44,9 +44,14 @@ export function useDrawComponent(context: IBlimpContext) {
     }, [store, drawComponent])
 
     const onMouseDownNewDrawObject = useCallback((konvaEvt: KonvaEventObject<MouseEvent>) => {
+        if (store.mode == "Default" || store.mode == "Path") return;
         const target = (konvaEvt.evt.target as unknown as HTMLCanvasElement).getBoundingClientRect();
+        const targetX = konvaEvt.evt.x - target.x;
+        const targetY = konvaEvt.evt.y - target.y
+        const x = targetX > 20 ? targetX : 20
+        const y = targetY > 20 ? targetY : 20
         return setDrawComponentByMode({
-            ...getCommonParam(konvaEvt.evt.x - target.x, konvaEvt.evt.y - target.y),
+            ...getCommonParam(x, y),
             image: initialImage
         });
     }, [store])
