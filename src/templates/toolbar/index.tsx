@@ -1,6 +1,6 @@
 import React, {useCallback, useContext, useMemo} from "react";
 import "./toolbar.scss";
-import {FaFont, FaImage, FaMousePointer, FaPenNib, FaRegCircle, FaRegSquare} from "react-icons/fa";
+import {FaFont, FaImage, FaMousePointer, FaPaintBrush, FaPenNib, FaRegCircle, FaRegSquare} from "react-icons/fa";
 import {IToolbarButton, ToolbarButton} from "../../component/toolbarButton";
 import {UserButton} from "../../component/userButton";
 import {BlimpContext} from "../../blimpx";
@@ -34,6 +34,12 @@ export function Toolbar() {
             isActive: store.mode == "Circle",
             icon: FaRegCircle,
             onClick: () => onClickToolbarButton("Circle")
+        },
+        {
+            label: "Create Brush",
+            isActive: store.mode == "Brush",
+            icon: FaPaintBrush,
+            onClick: () => onClickToolbarButton("Brush")
         },
         {
             label: "Create Path",

@@ -1,7 +1,9 @@
+@import "../../sass/variable";
+
 .header-container {
   display: flex;
   box-sizing: border-box;
-  background: #333333;
+  background: $bgPrimaryColor;
   height: 64px;
   align-items: center;
 

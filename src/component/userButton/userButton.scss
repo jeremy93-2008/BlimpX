@@ -1,9 +1,11 @@
+@import "../../sass/variable";
+
 .user-container {
   display: flex;
   box-sizing: border-box;
   cursor: pointer;
   align-items: center;
-  background-color: #666666;
+  background-color: $accentColor;
   padding: 5px 20px;
   border-radius: 10px;
   margin-right: 10px;

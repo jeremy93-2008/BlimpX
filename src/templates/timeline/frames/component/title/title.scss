@@ -2,13 +2,13 @@
 
 .title-layer-container {
   display: flex;
-  background-color: $bgBlackColor;
+  background-color: $bgPrimaryColor;
   position: relative;
   z-index: 10;
   align-items: center;
   justify-content: space-between;
   color: white;
-  min-width:0;
+  min-width: 0;
   padding-right: 5px;
   flex: 1;
 

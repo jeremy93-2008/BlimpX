@@ -42,7 +42,7 @@ export interface IBlimpTimeline {
 }
 
 export type IBlimpObjectType = "Rectangle" | "Circle" |
-    "Path" | "Image" | "Text";
+    "Path" | "Image" | "Text" | "Bezier" | "Brush";
 
 export interface IBlimpLayer {
     _id: string;

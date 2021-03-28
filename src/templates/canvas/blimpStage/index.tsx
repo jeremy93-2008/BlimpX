@@ -21,16 +21,20 @@ export function BlimpStage(props: IBlimpStageProps) {
 
     const {
         drawComponent,
-        onMouseDownNewDrawObject,
-        onMouseMoveNewDrawObject,
-        onMouseUpNewDrawObject
+        onMouseDownNewGenericDrawObject,
+        onMouseMoveNewGenericDrawObject,
+        onMouseUpNewGenericDrawObject,
+        onClickPathNewObject,
+        onDblClickPathNewObject
     } = useDrawComponent(context)
 
     return (
         <Stage width={width} height={height}
-               onMouseDown={onMouseDownNewDrawObject}
-               onMouseMove={onMouseMoveNewDrawObject}
-               onMouseUp={onMouseUpNewDrawObject}
+               onMouseDown={onMouseDownNewGenericDrawObject}
+               onMouseMove={onMouseMoveNewGenericDrawObject}
+               onMouseUp={onMouseUpNewGenericDrawObject}
+               onClick={onClickPathNewObject}
+               onDblClick={onDblClickPathNewObject}
                className={`konva-stage-container ${store.mode !== "Default" ? `create` : ""}`}>
             <Layer>
                 {getObjectByFrame(store.currentFrame).map(object => {

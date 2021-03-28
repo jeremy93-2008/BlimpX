@@ -1,8 +1,10 @@
+@import "../../../sass/variable";
+
 .scrollbar-container {
   display: flex;
   position: relative;
-  background: #333333;
-  border-top: solid 1px gray;
+  background: $bgPrimaryColor;
+  border-top: solid 1px $bgSecondaryColor;
   height: 16px;
   z-index: 5;
 
@@ -10,7 +12,7 @@
     flex: 1;
     min-width: 0;
     padding-right: 12px;
-    border-right: solid 1px gray;
+    border-right: solid 1px $bgSecondaryColor;
   }
 
   .scrollbar-frame {
@@ -21,7 +23,7 @@
 
     .thumb-container {
       position: absolute;
-      background: #666;
+      background: $bgSecondaryColor;
       border-radius: 5px;
       width: 16px;
       height: 16px;

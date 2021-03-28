@@ -1,17 +1,20 @@
+@import "../../../../../sass/variable";
+
 .cursor-container {
   position: absolute;
   margin-top: 8px;
-  background-color: #3e8fc6;
+  background-color: $secondaryCursorColor;
   width: 1px;
   z-index: 5;
   cursor: pointer;
   height: calc(30vh + 32px);
+
   .cursor-header {
     width: 10px;
     height: 20px;
     margin-left: -5px;
-    background-color: #3e8fc6;
-    border: solid 1px #2579b1;
+    background-color: $secondaryCursorColor;
+    border: solid 1px $primaryCursorColor;
     border-radius: 20px;
     cursor: pointer;
   }

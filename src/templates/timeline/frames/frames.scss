@@ -1,12 +1,14 @@
+@import "../../../sass/variable";
+
 .frames-container {
-  border-top: solid 1px gray;
+  border-top: solid 1px $accentColor;
   height: 30vh;
 }
 
 .layer-container {
   display: flex;
   height: 25px;
-  border-bottom: solid 1px gray;
+  border-bottom: solid 1px $accentColor;
 
   .frame-layer-container {
     position: relative;
@@ -19,9 +21,9 @@
       display: flex;
       align-items: center;
       justify-content: end;
-      background-color: gray;
+      background-color: $bgSecondaryColor;
       position: relative;
-      color: lightgray;
+      color: $bgLightenPrimaryColor;
       min-width: 1px;
       height: 100%;
       margin-right: 10px;
