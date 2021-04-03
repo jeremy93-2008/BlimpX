@@ -84,3 +84,9 @@ export interface IBlimpUser {
     name: string;
     imageURL: string;
 }
+
+export interface IBlimpTabsInspector {
+    title: string;
+    content: JSX.Element;
+    active: boolean;
+}

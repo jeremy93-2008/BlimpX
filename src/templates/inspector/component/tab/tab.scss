@@ -1,0 +1,14 @@
+.tab-inspector-container {
+  display: flex;
+  margin-top: 25px;
+  justify-content: space-evenly;
+  color: white;
+
+  .tab-inspector-header {
+    cursor: pointer;
+
+    &.disabled {
+      color: gray;
+    }
+  }
+}
