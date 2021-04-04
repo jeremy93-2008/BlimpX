@@ -86,7 +86,7 @@ export interface IBlimpUser {
 }
 
 export interface IBlimpTabsInspector {
+    id: string;
     title: string;
-    content: JSX.Element;
-    active: boolean;
+    content: JSX.Element
 }
