@@ -1,0 +1,63 @@
+@import "../../../../sass/variable";
+
+.section-container {
+  padding: 15px 0;
+
+  &.special {
+    box-sizing: border-box;
+    padding: 15px 20px;
+    border-radius: 10px;
+    background-color: $bgLighterPrimaryColor;
+  }
+
+  .section-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 10px;
+
+    .section-inner {
+      display: flex;
+      min-width: 0;
+      justify-content: space-between;
+      align-items: center;
+      border: solid 1px transparent;
+      padding: 10px;
+
+      &:hover {
+        border-color: white;
+        border-radius: 10px;
+      }
+
+      .section-inner-name {
+        text-align: right;
+        flex: 1;
+        padding-right: 10px;
+      }
+
+      .section-inner-value {
+        display: flex;
+        flex: 1;
+        min-width: 0;
+
+        .section-value-input {
+          flex: 1;
+          min-width: 0;
+          background-color: transparent;
+          border: none;
+          color: white;
+          font-size: 16px;
+          caret-color: white;
+          outline: none;
+        }
+      }
+    }
+
+    &.one-row {
+      grid-template-columns: 1fr;
+
+      .section-inner-value {
+        flex: 2;
+      }
+    }
+  }
+}

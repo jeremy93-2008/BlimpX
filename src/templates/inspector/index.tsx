@@ -1,9 +1,10 @@
 import React, {useCallback, useMemo, useState} from "react";
-import {TabInspector} from "./component/tab";
+import {TabInspector} from "./component/base/tab";
 
 import "./inspector.scss";
 import {IBlimpTabsInspector} from "@source/blimpx.typing";
-import {ContentInspector} from "./component/content";
+import {ContentInspector} from "./component/base/content";
+import {Properties} from "./component/properties";
 
 export function Inspector() {
     const [activeTabId, setActiveTabId] = useState("props")
@@ -13,7 +14,7 @@ export function Inspector() {
             {
                 id: "props",
                 title: "Properties",
-                content: <div>Properties</div>,
+                content: <Properties/>,
             },
             {
                 id: "documents",

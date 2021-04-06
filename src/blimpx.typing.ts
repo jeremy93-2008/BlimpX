@@ -90,3 +90,11 @@ export interface IBlimpTabsInspector {
     title: string;
     content: JSX.Element
 }
+
+export interface IBlimpPropsInspector {
+    propName: string;
+    header: string | JSX.Element;
+    type: "text" | "custom";
+    custom?: (value: string, onChange: Function) => JSX.Element;
+    pattern?: RegExp;
+}
