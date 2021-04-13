@@ -7,6 +7,7 @@ export const blimpStore: IBlimpState = {
     name: "Untitled",
     currentFrame: 0,
     currentLayer: 0,
+    currentObject: null,
     frameWidth: 11,
     layers: (process.env.NODE_ENV) ? mockLayers : [],
     timeline: {
@@ -46,6 +47,8 @@ export const blimpActions = (state: IBlimpState, action: IBlimpXAction): IBlimpS
             return {...state, mode: action.state.mode!};
         case "setCurrentFrame":
             return {...state, currentFrame: action.state.currentFrame!};
+        case "setCurrentObject":
+            return {...state, currentObject: action.state.currentObject!}
         case "setLayer":
             return {...state, layers: action.state.layers!};
         case "setTimeline":

@@ -1,9 +1,6 @@
 import React, {useCallback} from "react";
 import {Circle, Image, KonvaNodeComponent, Path, Rect, Text} from "react-konva";
 import {IBlimpFrame, IBlimpObjectRender, IBlimpParams} from "../../../../../blimpx.typing";
-import {CircleConfig} from "konva/types/shapes/Circle";
-import {PathConfig} from "konva/types/shapes/Path";
-import {ImageConfig} from "konva/types/shapes/Image";
 import {IBlimpContext} from "../../../../../blimpx";
 import Konva from "konva";
 import KonvaEventObject = Konva.KonvaEventObject;
@@ -71,31 +68,43 @@ function getComponentByType(context: IBlimpContext, obj: IBlimpObjectRender) {
         })
     }
 
+    const CanvasAttributeObject = {
+        draggable: isDefaultMode,
+        onDragEnd: (e: KonvaEventObject<DragEvent>) => onDragEnd(obj, e),
+        key: obj._id,
+        onMouseDown: () => {
+            setStore({
+                type: "setCurrentObject",
+                state: {
+                    ...store,
+                    currentObject: obj._id
+                }
+            })
+        },
+        ...getAttrs(currentParams)
+    }
+
+
     switch (obj.type) {
         case "Rectangle":
             return [currentFrame ?
-                <Rect draggable={isDefaultMode} onDragEnd={(e) => onDragEnd(obj, e)}
-                      key={obj._id} {...getAttrs(currentParams)}/> : null,
+                <Rect {...CanvasAttributeObject as any}/> : null,
                 nextFrames!.map(f => getOnionComponents(Rect, store.currentFrame, f))];
         case "Circle":
             return [currentFrame ?
-                <Circle draggable={isDefaultMode} onDragEnd={(e) => onDragEnd(obj, e)}
-                        key={obj._id}  {...getAttrs(currentParams) as CircleConfig} /> : null,
+                <Circle {...CanvasAttributeObject as any} /> : null,
                 nextFrames!.map(f => getOnionComponents(Circle, store.currentFrame, f))];
         case "Image":
             return [currentFrame ?
-                <Image draggable={isDefaultMode} onDragEnd={(e) => onDragEnd(obj, e)}
-                       key={obj._id} {...getAttrs(currentParams) as ImageConfig} /> : null,
+                <Image {...CanvasAttributeObject as any} /> : null,
                 nextFrames!.map(f => getOnionComponents(Image, store.currentFrame, f))];
         case "Text":
             return [currentFrame ?
-                <Text draggable={isDefaultMode} onDragEnd={(e) => onDragEnd(obj, e)}
-                      key={obj._id} {...getAttrs(currentParams)} /> : null,
+                <Text {...CanvasAttributeObject as any} /> : null,
                 nextFrames!.map(f => getOnionComponents(Text, store.currentFrame, f))];
         default:
             return [currentFrame ?
-                <Path draggable={isDefaultMode} onDragEnd={(e) => onDragEnd(obj, e)}
-                      key={obj._id} {...getAttrs(currentParams) as PathConfig} /> : null,
+                <Path {...CanvasAttributeObject as any} /> : null,
                 nextFrames!.map(f => getOnionComponents(Path, store.currentFrame, f))]
     }
 }

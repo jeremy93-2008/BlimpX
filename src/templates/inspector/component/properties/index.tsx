@@ -1,33 +1,39 @@
 import React, {useCallback, useContext, useMemo} from "react";
 import {BlimpContext} from "../../../../blimpx";
-import {IBlimpPropsInspector} from "@source/blimpx.typing";
+import {IBlimpFrameWithCurrentFrame, IBlimpPropsInspector} from "@source/blimpx.typing";
 import {FaRulerCombined} from "react-icons/fa";
 
 import "./properties.scss";
+import {useGetSpecialProps} from "./hook/useGetSpecialProps";
+import {useGetNormalProps} from "./hook/useGetNormalProps";
 
-export type IPropObject = Array<{
+export type IPropObject = {
     name: string,
     special?: boolean;
     content: IBlimpPropsInspector[]
-}>
+}
 
 export function Properties() {
-    const [store, setStore] = useContext(BlimpContext)
+    const [store] = useContext(BlimpContext)
 
-    const propObject: IPropObject = useMemo(() => {
+    const currentObjectProperties = useMemo(() => {
+        const currentObject = store.layers.find((layer) =>
+            layer.objects.find(obj => obj._id == store.currentObject))
+        const objectPropsWithFrames = currentObject ? currentObject.objects[0] : null;
+
+        return objectPropsWithFrames ? {
+            ...objectPropsWithFrames,
+            ...objectPropsWithFrames?.frames.find(f => f.frame == store.currentFrame)
+        } as IBlimpFrameWithCurrentFrame : null;
+    }, [store])
+
+    const specialProps = useGetSpecialProps(currentObjectProperties);
+    const normalProps = useGetNormalProps()
+
+    const propObject: IPropObject[] = useMemo(() => {
+        if (!specialProps) return [];
         return [
-            {
-                name: "Image",
-                content: [
-                    {
-                        propName: "image",
-                        header: "source",
-                        type: "custom",
-                        custom: () => <input type="file"/>
-                    }
-                ],
-                special: true
-            },
+            specialProps,
             {
                 name: "Position",
                 content: [
@@ -88,7 +94,7 @@ export function Properties() {
     return (
         <div className="properties-container">
             {propObject.map(obj =>
-                <div className={`section-container ${obj.special ? "special" : ""}`}>
+                (obj.content.length > 0 && <div className={`section-container ${obj.special ? "special" : ""}`}>
                     <span className="section-name">{obj.name}</span>
                     <div className={`section-content ${obj.content.length === 1 ? `one-row` : ""}`}>
                         {obj.content.map(content =>
@@ -98,7 +104,7 @@ export function Properties() {
                             </div>
                         )}
                     </div>
-                </div>
+                </div>)
             )}
         </div>
     )

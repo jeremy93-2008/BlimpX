@@ -6,7 +6,7 @@ import {PathConfig} from "konva/types/shapes/Path";
 
 export interface IBlimpXAction {
     type: "setUser" | "setLayer" | "setPlaying" |
-        "setTimeline" | "setName" | "setFps" | "setCurrentFrame" | "setMode";
+        "setTimeline" | "setName" | "setFps" | "setCurrentFrame" | "setMode" | "setCurrentObject";
     state: Partial<IBlimpState>;
 }
 
@@ -14,6 +14,7 @@ export interface IBlimpState {
     _id: string;
     name: string;
     currentFrame: number;
+    currentObject: string | null;
     currentLayer: number;
     frameWidth: number;
     layers: IBlimpLayer[];
@@ -76,6 +77,11 @@ export interface IBlimpObjectRender {
         currentFrame?: IBlimpFrame,
         nextFrames?: IBlimpFrame[]
     }
+}
+
+export interface IBlimpFrameWithCurrentFrame extends IBlimpFrame {
+    type: IBlimpObjectType;
+    frames: IBlimpFrame[];
 }
 
 export type IBlimpMode = "Default" | IBlimpObjectType;
