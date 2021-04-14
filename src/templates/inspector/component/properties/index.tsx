@@ -1,7 +1,6 @@
 import React, {useCallback, useContext, useMemo} from "react";
 import {BlimpContext} from "../../../../blimpx";
 import {IBlimpFrameWithCurrentFrame, IBlimpPropsInspector} from "@source/blimpx.typing";
-import {FaRulerCombined} from "react-icons/fa";
 
 import "./properties.scss";
 import {useGetSpecialProps} from "./hook/useGetSpecialProps";
@@ -28,42 +27,13 @@ export function Properties() {
     }, [store])
 
     const specialProps = useGetSpecialProps(currentObjectProperties);
-    const normalProps = useGetNormalProps()
+    const normalProps = useGetNormalProps(currentObjectProperties)
 
     const propObject: IPropObject[] = useMemo(() => {
         if (!specialProps) return [];
         return [
             specialProps,
-            {
-                name: "Position",
-                content: [
-                    {
-                        propName: "x",
-                        header: "X",
-                        type: "text"
-                    },
-                    {
-                        propName: "y",
-                        header: "Y",
-                        type: "text"
-                    },
-                    {
-                        propName: "width",
-                        header: "Width",
-                        type: "text"
-                    },
-                    {
-                        propName: "height",
-                        header: "Height",
-                        type: "text"
-                    },
-                    {
-                        propName: "rotation",
-                        header: <FaRulerCombined/>,
-                        type: "text"
-                    }
-                ]
-            },
+            ...normalProps,
             {
                 name: "Background",
                 content: [
@@ -85,9 +55,12 @@ export function Properties() {
     }, [store])
 
     const getContentFieldByType = useCallback((content: IBlimpPropsInspector) => {
-        if (content.type == "text") return <input className="section-value-input" type="text" value="1515"/>
+        if (content.type == "text") return <input disabled={content.disabled ?? false}
+                                                  className="section-value-input"
+                                                  type="text"
+                                                  value={!content.disabled ? (content.value ?? "") : "None"}/>
         if (!content.custom) throw TypeError("You need to specify a custom prop if custom are used in the type prop")
-        return content.custom("", () => {
+        return content.custom(content, () => {
         });
     }, [store])
 
@@ -98,7 +71,7 @@ export function Properties() {
                     <span className="section-name">{obj.name}</span>
                     <div className={`section-content ${obj.content.length === 1 ? `one-row` : ""}`}>
                         {obj.content.map(content =>
-                            <div className="section-inner">
+                            <div className={`section-inner ${content.disabled ? "disabled" : ""}`}>
                                 <span className="section-inner-name">{content.header}</span>
                                 <span className="section-inner-value">{getContentFieldByType(content)}</span>
                             </div>

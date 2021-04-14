@@ -22,10 +22,24 @@
       align-items: center;
       border: solid 1px transparent;
       padding: 10px;
+      border-radius: 10px;
 
-      &:hover {
+      &:not(.disabled):hover {
         border-color: white;
-        border-radius: 10px;
+      }
+
+      &.disabled {
+        cursor: not-allowed;
+
+        & .section-inner-name,
+        & .section-inner-value input.section-value-input {
+          color: gray;
+          cursor: not-allowed;
+        }
+      }
+
+      &.disabled:hover {
+        border-color: gray;
       }
 
       .section-inner-name {

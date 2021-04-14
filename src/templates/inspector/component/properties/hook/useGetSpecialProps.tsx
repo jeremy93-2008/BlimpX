@@ -3,7 +3,8 @@ import React, {useContext, useMemo} from "react";
 import {BlimpContext} from "../../../../../blimpx";
 import {IPropObject} from "@source/templates/inspector/component/properties";
 
-export function useGetSpecialProps(objectPropsWithFrames: IBlimpFrameWithCurrentFrame | null): IPropObject | null {
+export function useGetSpecialProps(objectPropsWithFrames:
+                                       IBlimpFrameWithCurrentFrame | null): IPropObject | null {
     const [store] = useContext(BlimpContext)
 
     const basicSpecialProps = {
