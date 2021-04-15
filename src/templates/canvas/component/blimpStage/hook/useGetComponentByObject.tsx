@@ -72,7 +72,7 @@ function getComponentByType(context: IBlimpContext, obj: IBlimpObjectRender) {
         draggable: isDefaultMode,
         onDragEnd: (e: KonvaEventObject<DragEvent>) => onDragEnd(obj, e),
         key: obj._id,
-        onMouseDown: () => {
+        onMouseDown: (evt: KonvaEventObject<MouseEvent>) => {
             setStore({
                 type: "setCurrentObject",
                 state: {
@@ -80,6 +80,7 @@ function getComponentByType(context: IBlimpContext, obj: IBlimpObjectRender) {
                     currentObject: obj._id
                 }
             })
+            evt.cancelBubble = true;
         },
         ...getAttrs(currentParams)
     }

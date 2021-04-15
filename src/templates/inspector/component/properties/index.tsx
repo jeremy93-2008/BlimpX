@@ -5,6 +5,7 @@ import {IBlimpFrameWithCurrentFrame, IBlimpPropsInspector} from "@source/blimpx.
 import "./properties.scss";
 import {useGetSpecialProps} from "./hook/useGetSpecialProps";
 import {useGetNormalProps} from "./hook/useGetNormalProps";
+import {FaHashtag} from "react-icons/fa";
 
 export type IPropObject = {
     name: string,
@@ -66,7 +67,14 @@ export function Properties() {
 
     return (
         <div className="properties-container">
-            {propObject.map(obj =>
+            {propObject.length == 0 && <div className="no-props">
+                <div className="icon">
+                    <FaHashtag size={24}/>
+                </div>
+                <div className="title">No properties available</div>
+                <div className="description">Select a elements to see properties</div>
+            </div>}
+            {propObject.length > 0 && propObject.map(obj =>
                 (obj.content.length > 0 && <div className={`section-container ${obj.special ? "special" : ""}`}>
                     <span className="section-name">{obj.name}</span>
                     <div className={`section-content ${obj.content.length === 1 ? `one-row` : ""}`}>

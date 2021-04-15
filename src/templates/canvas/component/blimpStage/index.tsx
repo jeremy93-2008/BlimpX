@@ -14,7 +14,7 @@ interface IBlimpStageProps {
 export function BlimpStage(props: IBlimpStageProps) {
     const {width, height} = props;
     const context = useContext(BlimpContext)
-    const [store] = context
+    const [store, setStore] = context
 
     const getObjectByFrame = useGetObjectByFrame(store)
     const getComponentByObject = useGetComponentByObject(context)
@@ -30,7 +30,13 @@ export function BlimpStage(props: IBlimpStageProps) {
 
     return (
         <Stage width={width} height={height}
-               onMouseDown={onMouseDownNewGenericDrawObject}
+               onMouseDown={(evt) => {
+                   setStore({
+                       type: "setCurrentObject",
+                       state: {...store, currentObject: null}
+                   })
+                   onMouseDownNewGenericDrawObject(evt)
+               }}
                onMouseMove={onMouseMoveNewGenericDrawObject}
                onMouseUp={onMouseUpNewGenericDrawObject}
                onClick={onClickPathNewObject}
