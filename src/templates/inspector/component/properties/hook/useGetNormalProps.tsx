@@ -8,21 +8,27 @@ export function useGetNormalProps(objectPropsWithFrames:
                                       IBlimpFrameWithCurrentFrame | null): IPropObject[] {
     const [store] = useContext(BlimpContext)
     return useMemo(() => {
-        return [
-            getPositionProps(objectPropsWithFrames?.type!, {
-                x: objectPropsWithFrames?.params.x || 0,
-                y: objectPropsWithFrames?.params.y || 0,
-                width: objectPropsWithFrames?.params.width || 0,
-                height: objectPropsWithFrames?.params.height || 0,
-                rotation: objectPropsWithFrames?.params.rotation || 0
-            }),
-            getBackgroundProps(objectPropsWithFrames?.type!, {
-                image: objectPropsWithFrames?.params.fillPatternImage || null,
-                color: objectPropsWithFrames?.params.fill || "",
-                gradient: objectPropsWithFrames?.params || null
-            })
-        ]
-    }, [store])
+            if (!objectPropsWithFrames?.params) return []
+            return [
+                getPositionProps(objectPropsWithFrames?.type!, {
+                    x: objectPropsWithFrames?.params.x || 0,
+                    y: objectPropsWithFrames?.params.y || 0,
+                    width: objectPropsWithFrames?.params.width || 0,
+                    height: objectPropsWithFrames?.params.height || 0,
+                    rotation: objectPropsWithFrames?.params.rotation || 0
+                }),
+                getBackgroundProps(objectPropsWithFrames?.type!, {
+                    image: objectPropsWithFrames?.params.fillPatternImage || null,
+                    color: objectPropsWithFrames?.params.fill || "",
+                    gradient: objectPropsWithFrames?.params || null
+                }),
+                getBorderProps(objectPropsWithFrames?.type!, {
+                    width: objectPropsWithFrames?.params.strokeWidth || 0,
+                    color: objectPropsWithFrames?.params.stroke || ""
+                })
+            ]
+        }, [store]
+    )
 }
 
 interface IPositionPropsValue {
@@ -41,13 +47,13 @@ export function getPositionProps(type: IBlimpObjectType, value: IPositionPropsVa
                 propName: "x",
                 header: "X",
                 value: `${value.x}`,
-                type: "text"
+                type: "number"
             },
             {
                 propName: "y",
                 header: "Y",
                 value: `${value.y}`,
-                type: "text"
+                type: "number"
             },
             {
                 propName: "width",
@@ -98,11 +104,37 @@ export function getBackgroundProps(type: IBlimpObjectType, value: IBackgroundPro
                 custom: () => <input type={"file"}/>
             },
             {
-                propName: "fillLinearGradient",
+                propName: "",
                 header: "Gradient",
                 value: `${value.gradient}`,
                 type: "custom",
                 custom: () => <input type={"number"}/>
+            }
+        ]
+    }
+}
+
+interface IBorderPropsValue {
+    color: string;
+    width: number | undefined;
+}
+
+export function getBorderProps(type: IBlimpObjectType, value: IBorderPropsValue): IPropObject {
+    return {
+        name: "Border",
+        content: [
+            {
+                propName: "stroke",
+                header: "Color",
+                value: `${value.color}`,
+                type: "custom",
+                custom: () => <input type="color"/>
+            },
+            {
+                propName: "strokeWidth",
+                header: "Width",
+                value: `${value.width}`,
+                type: "number"
             }
         ]
     }

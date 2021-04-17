@@ -31,20 +31,30 @@ export function Properties() {
     const normalProps = useGetNormalProps(currentObjectProperties)
 
     const propObject: IPropObject[] = useMemo(() => {
-        if (!specialProps) return [];
+        if (!specialProps || normalProps.length < 1) return [];
         return [
             specialProps,
             ...normalProps,
         ]
     }, [store])
 
+    const getValueByType = useCallback((type: "text" | "number", value: string | undefined) => {
+        if (!value) return null;
+        if (type == "number") return Number(value).toFixed(2);
+        return value;
+    }, [])
+
     const getContentFieldByType = useCallback((content: IBlimpPropsInspector) => {
-        if (content.type == "text") return <input disabled={content.disabled ?? false}
-                                                  className="section-value-input"
-                                                  type="text"
-                                                  value={!content.disabled ? (content.value ?? "") : "None"}/>
-        if (!content.custom) throw TypeError("You need to specify a custom prop if custom are used in the type prop")
-        return content.custom(content, () => {
+        const {type, custom, value, disabled} = content;
+        if (type == "text" || type == "number")
+            return <input disabled={disabled ?? false}
+                          className="section-value-input"
+                          type="text"
+                          value={!disabled ?
+                              getValueByType(type, value) ?? ""
+                              : "None"}/>
+        if (!custom) throw TypeError("You need to specify a custom prop if custom are used in the type prop")
+        return custom(content, () => {
         });
     }, [store])
 

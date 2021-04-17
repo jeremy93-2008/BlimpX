@@ -100,7 +100,7 @@ export interface IBlimpTabsInspector {
 export interface IBlimpPropsInspector {
     propName: string;
     header: string | JSX.Element;
-    type: "text" | "custom";
+    type: "text" | "number" | "custom";
     disabled?: boolean;
     value?: string;
     custom?: (props: IBlimpPropsInspector, onChange: Function) => JSX.Element;
