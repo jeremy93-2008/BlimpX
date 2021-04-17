@@ -1,4 +1,4 @@
-import {IBlimpFrameWithCurrentFrame, IBlimpObjectType} from "@source/blimpx.typing";
+import {IBlimpFrameWithCurrentFrame, IBlimpObjectType, IBlimpParams} from "@source/blimpx.typing";
 import {IPropObject} from "../index";
 import React, {useContext, useMemo} from "react";
 import {BlimpContext} from "../../../../../blimpx";
@@ -16,7 +16,11 @@ export function useGetNormalProps(objectPropsWithFrames:
                 height: objectPropsWithFrames?.params.height || 0,
                 rotation: objectPropsWithFrames?.params.rotation || 0
             }),
-
+            getBackgroundProps(objectPropsWithFrames?.type!, {
+                image: objectPropsWithFrames?.params.fillPatternImage || null,
+                color: objectPropsWithFrames?.params.fill || "",
+                gradient: objectPropsWithFrames?.params || null
+            })
         ]
     }, [store])
 }
@@ -69,9 +73,37 @@ export function getPositionProps(type: IBlimpObjectType, value: IPositionPropsVa
     }
 }
 
-export function getBackgroundProps(type: IBlimpObjectType, value: IPositionPropsValue): IPropObject {
+interface IBackgroundPropsValue {
+    color: string;
+    image: HTMLImageElement | null;
+    gradient: IBlimpParams | null;
+}
+
+export function getBackgroundProps(type: IBlimpObjectType, value: IBackgroundPropsValue): IPropObject {
     return {
         name: "Background",
-        content: []
+        content: [
+            {
+                propName: "fill",
+                header: "Color",
+                value: `${value.color}`,
+                type: "custom",
+                custom: () => <input type={"color"}/>
+            },
+            {
+                propName: "fillPatternImage",
+                header: "Image",
+                value: `${value.image}`,
+                type: "custom",
+                custom: () => <input type={"file"}/>
+            },
+            {
+                propName: "fillLinearGradient",
+                header: "Gradient",
+                value: `${value.gradient}`,
+                type: "custom",
+                custom: () => <input type={"number"}/>
+            }
+        ]
     }
 }

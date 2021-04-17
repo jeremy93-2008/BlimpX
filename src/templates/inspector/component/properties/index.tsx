@@ -35,23 +35,6 @@ export function Properties() {
         return [
             specialProps,
             ...normalProps,
-            {
-                name: "Background",
-                content: [
-                    {
-                        propName: "fill",
-                        header: "Color",
-                        type: "custom",
-                        custom: () => <input type="color"/>
-                    },
-                    {
-                        propName: "fillPatternImage",
-                        header: "Image",
-                        type: "custom",
-                        custom: () => <input type="file"/>
-                    }
-                ]
-            }
         ]
     }, [store])
 
