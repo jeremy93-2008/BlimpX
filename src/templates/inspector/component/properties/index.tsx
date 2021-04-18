@@ -1,11 +1,13 @@
 import React, {useCallback, useContext, useMemo} from "react";
 import {BlimpContext} from "../../../../blimpx";
 import {IBlimpFrameWithCurrentFrame, IBlimpPropsInspector} from "@source/blimpx.typing";
-
-import "./properties.scss";
 import {useGetSpecialProps} from "./hook/useGetSpecialProps";
 import {useGetNormalProps} from "./hook/useGetNormalProps";
+import {useGetAdditionalProps} from "./hook/useGetAdditionalProps";
+
 import {FaHashtag} from "react-icons/fa";
+
+import "./properties.scss";
 
 export type IPropObject = {
     name: string,
@@ -28,13 +30,15 @@ export function Properties() {
     }, [store])
 
     const specialProps = useGetSpecialProps(currentObjectProperties);
-    const normalProps = useGetNormalProps(currentObjectProperties)
+    const normalProps = useGetNormalProps(currentObjectProperties);
+    const additionalProps = useGetAdditionalProps(currentObjectProperties)
 
     const propObject: IPropObject[] = useMemo(() => {
         if (!specialProps || normalProps.length < 1) return [];
         return [
             specialProps,
             ...normalProps,
+            ...additionalProps
         ]
     }, [store])
 

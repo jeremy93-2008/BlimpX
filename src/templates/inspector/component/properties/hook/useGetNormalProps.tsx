@@ -20,11 +20,8 @@ export function useGetNormalProps(objectPropsWithFrames:
                 getBackgroundProps(objectPropsWithFrames?.type!, {
                     image: objectPropsWithFrames?.params.fillPatternImage || null,
                     color: objectPropsWithFrames?.params.fill || "",
-                    gradient: objectPropsWithFrames?.params || null
-                }),
-                getBorderProps(objectPropsWithFrames?.type!, {
-                    width: objectPropsWithFrames?.params.strokeWidth || 0,
-                    color: objectPropsWithFrames?.params.stroke || ""
+                    gradient: objectPropsWithFrames?.params || null,
+                    repeat: objectPropsWithFrames.params.fillPatternRepeat || ""
                 })
             ]
         }, [store]
@@ -83,6 +80,7 @@ interface IBackgroundPropsValue {
     color: string;
     image: HTMLImageElement | null;
     gradient: IBlimpParams | null;
+    repeat: string;
 }
 
 export function getBackgroundProps(type: IBlimpObjectType, value: IBackgroundPropsValue): IPropObject {
@@ -106,35 +104,14 @@ export function getBackgroundProps(type: IBlimpObjectType, value: IBackgroundPro
             {
                 propName: "",
                 header: "Gradient",
-                value: `${value.gradient}`,
-                type: "custom",
-                custom: () => <input type={"number"}/>
-            }
-        ]
-    }
-}
-
-interface IBorderPropsValue {
-    color: string;
-    width: number | undefined;
-}
-
-export function getBorderProps(type: IBlimpObjectType, value: IBorderPropsValue): IPropObject {
-    return {
-        name: "Border",
-        content: [
-            {
-                propName: "stroke",
-                header: "Color",
-                value: `${value.color}`,
-                type: "custom",
-                custom: () => <input type="color"/>
+                value: `${value.gradient?.fillPatternImage}`,
+                type: "text"
             },
             {
-                propName: "strokeWidth",
-                header: "Width",
-                value: `${value.width}`,
-                type: "number"
+                propName: "fillPatternRepeat",
+                header: "Repeat",
+                value: `${value.repeat}`,
+                type: "text"
             }
         ]
     }
