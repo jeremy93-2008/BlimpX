@@ -27,18 +27,18 @@ export function Frames(props: ILayerFramesProps) {
                         <div ref={layersRef} className="frame-layer-container">
                         </div>
                     </div>
-                    <div key={layer._id} className="layer-container">
+                    <>
                         {layer.objects.map((obj, idx) =>
-                            <>
+                            <div key={layer._id} className="layer-container">
                                 <div className="title-object-container">
                                     {obj.type}
                                 </div>
                                 <div className="frame-object-container">
                                     {renderObjectTemplate(layersWidth, layerIdx, idx)}
                                 </div>
-                            </>
+                            </div>
                         )}
-                    </div>
+                    </>
                 </>
             )}
         </div>

@@ -1,7 +1,8 @@
 import React, {useCallback} from "react";
-import {Circle, Image, KonvaNodeComponent, Path, Rect, Text} from "react-konva";
+import {Circle, Image as ImageKonva, KonvaNodeComponent, Path, Rect, Text} from "react-konva";
 import {IBlimpFrame, IBlimpObjectRender, IBlimpParams} from "../../../../../blimpx.typing";
 import {IBlimpContext} from "../../../../../blimpx";
+import grid from "../../../../../images/grid.png";
 import Konva from "konva";
 import KonvaEventObject = Konva.KonvaEventObject;
 
@@ -42,6 +43,8 @@ function getComponentByType(context: IBlimpContext, obj: IBlimpObjectRender) {
 
     const isDefaultMode = store.mode === "Default";
 
+    const isObjectSelected = store.currentObject === obj._id;
+
     const onDragEnd = (obj: IBlimpObjectRender, e: KonvaEventObject<DragEvent>) => {
         if (store.mode !== "Default") return;
         const newLayers = store.layers.map(layer => {
@@ -68,6 +71,9 @@ function getComponentByType(context: IBlimpContext, obj: IBlimpObjectRender) {
         })
     }
 
+    const gridSelectedImage = new Image();
+    gridSelectedImage.src = grid;
+
     const CanvasAttributeObject = {
         draggable: isDefaultMode,
         onDragEnd: (e: KonvaEventObject<DragEvent>) => onDragEnd(obj, e),
@@ -82,7 +88,8 @@ function getComponentByType(context: IBlimpContext, obj: IBlimpObjectRender) {
             })
             evt.cancelBubble = true;
         },
-        ...getAttrs(currentParams)
+        ...getAttrs(currentParams),
+        fillPatternImage: isObjectSelected ? gridSelectedImage : undefined,
     }
 
 
@@ -97,8 +104,8 @@ function getComponentByType(context: IBlimpContext, obj: IBlimpObjectRender) {
                 nextFrames!.map(f => getOnionComponents(Circle, store.currentFrame, f))];
         case "Image":
             return [currentFrame ?
-                <Image {...CanvasAttributeObject as any} /> : null,
-                nextFrames!.map(f => getOnionComponents(Image, store.currentFrame, f))];
+                <ImageKonva {...CanvasAttributeObject as any} /> : null,
+                nextFrames!.map(f => getOnionComponents(ImageKonva, store.currentFrame, f))];
         case "Text":
             return [currentFrame ?
                 <Text {...CanvasAttributeObject as any} /> : null,

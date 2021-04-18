@@ -41,10 +41,24 @@
       height: 100%;
       margin-right: 10px;
 
+      .frame-content {
+        position: absolute;
+        height: 100%;
+      }
+
+      .frame-selected {
+        background-color: $primaryCursorColor;
+      }
+
       .is-frame-exist {
+        position: relative;
         display: inline-block;
         margin-left: 1px;
         cursor: default;
+      }
+
+      .frame-selected + .is-frame-exist {
+        color: $quaternaryCursorColor;
       }
     }
   }

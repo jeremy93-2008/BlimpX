@@ -25,13 +25,18 @@ export const useWidthLayer = (layersRef: React.RefObject<HTMLElement>,
     return null;
 }
 
-const onClickLayer = (context: IBlimpContext, newCurrentFrame: number) => {
+const onClickLayer = (context: IBlimpContext, newCurrentFrame: number, newCurrentObject?: string) => {
     const [store, setStore] = context;
     if (store.isPlaying) return;
     setStore({
         type: "setCurrentFrame",
         state: {...store, currentFrame: newCurrentFrame}
     })
+    if (newCurrentObject)
+        setStore({
+            type: "setCurrentObject",
+            state: {...store, currentObject: newCurrentObject}
+        })
 }
 
 const getHeaderTemplate = (context: IBlimpContext, idx: number, xForLayer: number) => {
@@ -50,10 +55,14 @@ const getHeaderTemplate = (context: IBlimpContext, idx: number, xForLayer: numbe
 }
 
 const getFrameTemplate = (context: IBlimpContext, object: IBlimpObject, idx: number) => {
+    const [store] = context;
     const currentFrame = idx;
     const isFrameExist = object.frames.find(frame => frame.frame === currentFrame)
+    const isFrameSelected = store.currentFrame === idx && store.currentObject === object._id
     return (<>
-        <div onClick={() => onClickLayer(context, currentFrame)} key={idx} className="line">
+        <div onClick={() => onClickLayer(context, currentFrame, object._id)} key={idx} className="line">
+            <div className={`frame-content ${isFrameSelected ? "frame-selected" : ""}`}
+                 style={{width: store.frameWidth}}/>
             <span className="is-frame-exist">{isFrameExist ? "●" : ""}</span>
         </div>
     </>)

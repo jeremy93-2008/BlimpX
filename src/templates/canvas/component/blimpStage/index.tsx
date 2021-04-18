@@ -42,15 +42,19 @@ export function BlimpStage(props: IBlimpStageProps) {
                onClick={onClickPathNewObject}
                onDblClick={onDblClickPathNewObject}
                className={`konva-stage-container ${store.mode !== "Default" ? `create` : ""}`}>
-            <Layer>
-                {getObjectByFrame(store.currentFrame).map(object => {
-                    if (!object) return;
-                    const {CurrentComponent, NextComponents} = getComponentByObject(object)
-                    return <>
+            {getObjectByFrame(store.currentFrame).map(object => {
+                if (!object) return;
+                const {CurrentComponent, NextComponents} = getComponentByObject(object)
+                return <>
+                    <Layer>
                         {CurrentComponent}
+                    </Layer>
+                    <Layer>
                         {NextComponents}
-                    </>
-                })}
+                    </Layer>
+                </>
+            })}
+            <Layer>
                 {drawComponent}
             </Layer>
         </Stage>

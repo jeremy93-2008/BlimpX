@@ -11,7 +11,8 @@ export function useGetAdditionalProps(objectPropsWithFrames:
             return [
                 getBorderProps(objectPropsWithFrames?.type!, {
                     width: objectPropsWithFrames?.params.strokeWidth || 0,
-                    color: objectPropsWithFrames?.params.stroke || ""
+                    color: objectPropsWithFrames?.params.stroke || "",
+                    radius: objectPropsWithFrames.params.cornerRadius || 0
                 }),
                 getShadowProps(objectPropsWithFrames.type!, {
                     color: objectPropsWithFrames.params.shadowColor || "",
@@ -30,6 +31,7 @@ export function useGetAdditionalProps(objectPropsWithFrames:
 interface IBorderPropsValue {
     color: string;
     width: number | undefined;
+    radius: number | number[] | undefined;
 }
 
 export function getBorderProps(type: IBlimpObjectType, value: IBorderPropsValue): IPropObject {
@@ -48,6 +50,12 @@ export function getBorderProps(type: IBlimpObjectType, value: IBorderPropsValue)
                 header: "Width",
                 value: `${value.width}`,
                 type: "number"
+            },
+            {
+                propName: "cornerRadius",
+                header: "Radius",
+                value: `${value.radius}`,
+                type: "text"
             }
         ]
     }

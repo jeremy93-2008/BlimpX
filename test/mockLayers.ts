@@ -40,6 +40,38 @@ export const mockLayers: IBlimpLayer[] = [
                         }
                     }
                 ]
+            },
+            {
+                _id: uuidv4(),
+                type: "Circle",
+                frames: [
+                    {
+                        _id: uuidv4(),
+                        frame: 0,
+                        params: {
+                            x: 21,
+                            y: 11,
+                            width: 250,
+                            height: 150,
+                            radius: 20,
+                            stroke: "black",
+                            strokeWidth: 2
+                        }
+                    },
+                    {
+                        _id: uuidv4(),
+                        frame: 1,
+                        params: {
+                            x: 65,
+                            y: 76,
+                            width: 250,
+                            height: 150,
+                            radius: 20,
+                            stroke: "black",
+                            strokeWidth: 2
+                        }
+                    }
+                ]
             }
         ]
     },
