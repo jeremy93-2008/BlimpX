@@ -9,7 +9,8 @@
   }
 
   &::-webkit-scrollbar-track {
-    background: transparent;
+    background: transparentize($bgLightenPrimaryColor, 0.8);
+    border-radius: 10px;
   }
 
   &::-webkit-scrollbar-thumb {

@@ -5,12 +5,25 @@
   height: 30vh;
 }
 
-.layer-container {
+.layer-container, .object-container {
   display: flex;
   height: 25px;
   border-bottom: solid 1px $accentColor;
 
-  .frame-layer-container {
+  .title-object-container {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 12px;
+    padding-left: 20px;
+    flex: 1;
+    min-width: 0;
+    box-sizing: border-box;
+    padding-right: 0;
+    margin-right: -14px;
+  }
+
+  .frame-layer-container, .frame-object-container {
     position: relative;
     display: flex;
     min-width: 0;

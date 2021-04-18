@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from "react";
-import {IBlimpLayer} from "../blimpx.typing";
+import {IBlimpObject} from "../blimpx.typing";
 import {BlimpContext, IBlimpContext} from "../blimpx";
 
 type layersType = "header" | "frames";
@@ -34,7 +34,7 @@ const onClickLayer = (context: IBlimpContext, newCurrentFrame: number) => {
     })
 }
 
-const getHeaderLayers = (context: IBlimpContext, idx: number, xForLayer: number) => {
+const getHeaderTemplate = (context: IBlimpContext, idx: number, xForLayer: number) => {
     const [store] = context
     const {currentFrame, timeline} = store;
     const {onionLayersShown} = store.timeline;
@@ -49,18 +49,18 @@ const getHeaderLayers = (context: IBlimpContext, idx: number, xForLayer: number)
     </div>)
 }
 
-const getFrameLayers = (context: IBlimpContext, layer: IBlimpLayer, idx: number) => {
+const getFrameTemplate = (context: IBlimpContext, object: IBlimpObject, idx: number) => {
     const currentFrame = idx;
-    const isFrameExist = layer.objects.map(obj =>
-        obj.frames.find(frame => frame.frame === currentFrame)).filter(f => f !== undefined)
+    const isFrameExist = object.frames.find(frame => frame.frame === currentFrame)
     return (<>
         <div onClick={() => onClickLayer(context, currentFrame)} key={idx} className="line">
-            <span className="is-frame-exist">{isFrameExist.length > 0 ? "●" : ""}</span>
+            <span className="is-frame-exist">{isFrameExist ? "●" : ""}</span>
         </div>
     </>)
 }
 
-export const getLayersByWidth = (name: layersType, context: IBlimpContext, layersWidth: number, layerIdx?: number) => {
+export const getLayersByWidth = (name: layersType, context: IBlimpContext, layersWidth: number,
+                                 layerIdx?: number, objectIdx?: number) => {
     const [store, setStore] = context;
     const {timeline} = store;
     let layersWidthDOM = layersWidth;
@@ -69,9 +69,9 @@ export const getLayersByWidth = (name: layersType, context: IBlimpContext, layer
         if ((timeline.scroll.xFrame * store.frameWidth) > idx * store.frameWidth) return;
         layersWidthDOM -= store.frameWidth;
         if (name == "header")
-            return getHeaderLayers(context, idx, timeline.scroll.xFrame)
-        if (name == "frames" && layerIdx != undefined)
-            return getFrameLayers(context, store.layers[layerIdx], idx)
+            return getHeaderTemplate(context, idx, timeline.scroll.xFrame)
+        else if (name == "frames" && layerIdx != undefined && objectIdx != undefined)
+            return getFrameTemplate(context, store.layers[layerIdx].objects[objectIdx], idx)
         return null;
     });
 }
