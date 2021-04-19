@@ -1,17 +1,19 @@
-.fpscounter-container {
-  .fps-input {
+.framecounter-container {
+  .frame-input {
+    margin-left: 10px;
     background-color: transparent;
     border: none;
-    border-bottom: solid 1px gray;
+    text-align: center;
     color: gray;
     font-size: 16px;
     outline: none;
     transition: border-color .3s ease-in-out;
-    width: 32px;
+    width: 48px;
     cursor: default;
   }
 
-  .fps-text {
+  .frame-text {
     font-size: 12px;
+    margin-right: 5px;
   }
 }
