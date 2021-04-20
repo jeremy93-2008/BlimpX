@@ -4,6 +4,7 @@ import {useWidthLayer} from "../../../util/layers";
 import {TitleFrame} from "../frames/component/title";
 
 import "./frames.scss";
+import {CollapsableArrow} from "./component/caret";
 
 interface ILayerFramesProps {
     renderObjectTemplate: (layersWidth: number, layerIdx: number, objIdx: number) => JSX.Element
@@ -23,6 +24,7 @@ export function Frames(props: ILayerFramesProps) {
             {store.layers.map((layer, layerIdx) =>
                 <>
                     <div key={layer._id} className="layer-container">
+                        <CollapsableArrow isCollapsable={false} onClick={() => null}/>
                         <TitleFrame layer={layer}/>
                         <div ref={layersRef} className="frame-layer-container">
                         </div>
