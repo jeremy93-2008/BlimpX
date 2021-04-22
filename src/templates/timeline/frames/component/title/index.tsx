@@ -5,16 +5,17 @@ import "./title.scss";
 import {FrameOptions} from "../../../../../component/frameOptions";
 
 interface ITitleProps {
-    layer: IBlimpLayer
+    layer: IBlimpLayer;
+    onClick: () => void;
 }
 
 export function TitleFrame(props: ITitleProps) {
-    const { layer } = props;
+    const {layer, onClick} = props;
     return (
         <div className="title-layer-container">
-            <span className="title-layer">{layer.name}</span>
+            <span onClick={onClick} className="title-layer">{layer.name}</span>
             <div className="frame-options-container">
-                <FrameOptions onVisibility={() => true} onLock={() => false} />
+                <FrameOptions onVisibility={() => true} onLock={() => false}/>
             </div>
         </div>
     )

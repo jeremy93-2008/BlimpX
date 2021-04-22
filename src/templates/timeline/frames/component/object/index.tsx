@@ -13,8 +13,8 @@ export function ObjectLayers(props: IObjectLayersProps) {
     const blimpContext = useContext(BlimpContext);
 
     return (
-        <>
+        <React.Fragment key={"objectLayers" + layerIdx + objIdx}>
             {getLayersByWidth("frames", blimpContext, layersWidth, layerIdx, objIdx)}
-        </>
+        </React.Fragment>
     )
 }

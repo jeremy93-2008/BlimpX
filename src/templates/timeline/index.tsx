@@ -14,7 +14,8 @@ export function Timeline() {
             <Header/>
             <Frames renderObjectTemplate={
                 (layersWidth, layerIdx, objIdx) =>
-                    <ObjectLayers layersWidth={layersWidth} layerIdx={layerIdx} objIdx={objIdx}/>}/>
+                    <ObjectLayers key={"timeline" + objIdx} layersWidth={layersWidth} layerIdx={layerIdx}
+                                  objIdx={objIdx}/>}/>
             <ScrollBar/>
         </div>
     )

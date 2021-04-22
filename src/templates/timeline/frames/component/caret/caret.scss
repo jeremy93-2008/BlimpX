@@ -1,4 +1,16 @@
 .collapsable-container {
   position: absolute;
   color: white;
+  cursor: pointer;
+  z-index: 15;
+  top: 3px;
+  left: 2px;
+
+  svg {
+    transition: transform .2s ease-in-out;
+  }
+
+  svg.collapsed {
+    transform: rotate(-90deg);
+  }
 }

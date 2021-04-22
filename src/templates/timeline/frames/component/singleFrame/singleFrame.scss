@@ -1,0 +1,69 @@
+@import "../../../../../sass/variable";
+
+.layer-container, .object-container {
+  position: relative;
+  display: flex;
+  height: 25px;
+  border-bottom: solid 1px $accentColor;
+
+  .title-object-container {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 12px;
+    padding-left: 20px;
+    flex: 1;
+    min-width: 0;
+    box-sizing: border-box;
+    padding-right: 0;
+    margin-right: -14px;
+  }
+
+  .frame-layer-container, .frame-object-container {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    flex: 6;
+    box-sizing: border-box;
+
+    .line {
+      display: flex;
+      align-items: center;
+      justify-content: end;
+      background-color: $bgSecondaryColor;
+      position: relative;
+      color: $bgLightenPrimaryColor;
+      min-width: 1px;
+      height: 100%;
+      margin-right: 10px;
+
+      .frame-content {
+        position: absolute;
+        height: 100%;
+      }
+
+      .frame-selected {
+        background-color: $primaryCursorColor;
+      }
+
+      .is-frame-exist {
+        position: relative;
+        display: inline-block;
+        margin-left: 1px;
+        cursor: default;
+      }
+
+      .frame-selected + .is-frame-exist {
+        color: $quaternaryCursorColor;
+      }
+    }
+  }
+}
+
+.layer-object-container {
+  overflow: hidden;
+
+  &.collapsed {
+    height: 0;
+  }
+}
