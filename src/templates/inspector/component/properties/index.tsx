@@ -19,9 +19,13 @@ export function Properties() {
     const [store] = useContext(BlimpContext)
 
     const currentObjectProperties = useMemo(() => {
-        const currentObject = store.layers.find((layer) =>
+        const currentLayer = store.layers.find((layer) =>
             layer.objects.find(obj => obj._id == store.currentObject))
-        const objectPropsWithFrames = currentObject ? currentObject.objects[0] : null;
+
+        const currentObject = currentLayer ?
+            currentLayer.objects.find(obj => obj._id === store.currentObject) : null;
+
+        const objectPropsWithFrames = currentObject ?? null;
 
         return objectPropsWithFrames ? {
             ...objectPropsWithFrames,
