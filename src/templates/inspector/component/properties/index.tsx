@@ -57,7 +57,7 @@ export function Properties() {
         if (type == "text" || type == "number")
             return <input disabled={disabled ?? false}
                           className="section-value-input"
-                          type="text"
+                          type={type}
                           value={!disabled ?
                               getValueByType(type, value) ?? ""
                               : "None"}/>
