@@ -1,0 +1,23 @@
+.size-input-container {
+  display: flex;
+  width: 100%;
+
+  &.disabled {
+    pointer-events: none;
+    filter: grayscale(1);
+  }
+
+  .size-input-text {
+    flex: 6;
+    min-width: 0;
+    font-size: 16px;
+    margin-right: 10px;
+    background: none;
+    border: none;
+    color: white;
+  }
+
+  .size-input-select {
+    flex: 1;
+  }
+}

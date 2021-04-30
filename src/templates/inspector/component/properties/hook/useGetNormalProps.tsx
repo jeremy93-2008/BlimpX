@@ -1,6 +1,7 @@
 import {IBlimpFrameWithCurrentFrame, IBlimpObjectType, IBlimpParams} from "@source/blimpx.typing";
 import {IPropObject} from "../index";
 import React, {useContext, useMemo} from "react";
+import { SizeInput } from "../component/size"
 import {BlimpContext} from "../../../../../blimpx";
 import {FaRulerCombined} from "react-icons/fa";
 
@@ -57,7 +58,8 @@ export function getPositionProps(type: IBlimpObjectType, value: IPositionPropsVa
                 header: "Width",
                 disabled: type === "Circle",
                 value: `${value.width}`,
-                type: "text"
+                custom: (props, onChange) => <SizeInput disabled={props.disabled} value={props.value} onChange={onChange} />,
+                type: "custom"
             },
             {
                 propName: "height",

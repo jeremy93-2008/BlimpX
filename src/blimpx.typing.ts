@@ -103,6 +103,6 @@ export interface IBlimpPropsInspector {
     type: "text" | "number" | "custom";
     disabled?: boolean;
     value?: string;
-    custom?: (props: IBlimpPropsInspector, onChange: Function) => JSX.Element;
+    custom?: (props: IBlimpPropsInspector, onChange: (newValue: string) => void) => JSX.Element;
     pattern?: RegExp;
 }
