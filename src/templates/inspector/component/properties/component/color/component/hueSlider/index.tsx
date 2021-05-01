@@ -14,7 +14,5 @@ export function HueSlider(props: IHueSliderProps) {
         return `${linear.slice(0, linear.length - 1)})`;
     }, []);
 
-    console.log(linearGradient)
-
     return (<div className="hue-slider-container" style={{background: linearGradient}}/>)
 }
