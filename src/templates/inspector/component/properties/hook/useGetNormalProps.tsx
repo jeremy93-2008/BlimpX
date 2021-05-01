@@ -1,9 +1,10 @@
 import {IBlimpFrameWithCurrentFrame, IBlimpObjectType, IBlimpParams} from "@source/blimpx.typing";
 import {IPropObject} from "../index";
 import React, {useContext, useMemo} from "react";
-import { SizeInput } from "../component/size"
+import {SizeInput} from "../component/size"
 import {BlimpContext} from "../../../../../blimpx";
 import {FaRulerCombined} from "react-icons/fa";
+import {ColorInput} from "../component/color";
 
 export function useGetNormalProps(objectPropsWithFrames:
                                       IBlimpFrameWithCurrentFrame | null): IPropObject[] {
@@ -58,7 +59,8 @@ export function getPositionProps(type: IBlimpObjectType, value: IPositionPropsVa
                 header: "Width",
                 disabled: type === "Circle",
                 value: `${value.width}`,
-                custom: (props, onChange) => <SizeInput disabled={props.disabled} value={props.value} onChange={onChange} />,
+                custom: (props, onChange) => <SizeInput disabled={props.disabled} value={props.value}
+                                                        onChange={onChange}/>,
                 type: "custom"
             },
             {
@@ -66,13 +68,17 @@ export function getPositionProps(type: IBlimpObjectType, value: IPositionPropsVa
                 header: "Height",
                 disabled: type === "Circle",
                 value: `${value.height}`,
-                type: "text"
+                custom: (props, onChange) => <SizeInput disabled={props.disabled} value={props.value}
+                                                        onChange={onChange}/>,
+                type: "custom"
             },
             {
                 propName: "rotation",
                 header: <FaRulerCombined/>,
                 value: `${value.rotation}`,
-                type: "text"
+                custom: (props, onChange) => <SizeInput disabled={props.disabled} value={props.value}
+                                                        onChange={onChange} metrics={["º"]}/>,
+                type: "custom"
             }
         ]
     }
@@ -94,7 +100,8 @@ export function getBackgroundProps(type: IBlimpObjectType, value: IBackgroundPro
                 header: "Color",
                 value: `${value.color}`,
                 type: "custom",
-                custom: () => <input type={"color"}/>
+                custom: (props, onChange) => <ColorInput value={props.value} disabled={props.disabled}
+                                                         onChange={onChange}/>
             },
             {
                 propName: "fillPatternImage",

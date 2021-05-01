@@ -2,6 +2,7 @@ import {IBlimpFrameWithCurrentFrame, IBlimpObjectType} from "@source/blimpx.typi
 import {IPropObject} from "@source/templates/inspector/component/properties";
 import React, {useContext, useMemo} from "react";
 import {BlimpContext} from "../../../../../blimpx";
+import {ColorInput} from "../component/color";
 
 export function useGetAdditionalProps(objectPropsWithFrames:
                                           IBlimpFrameWithCurrentFrame | null): IPropObject[] {
@@ -43,7 +44,8 @@ export function getBorderProps(type: IBlimpObjectType, value: IBorderPropsValue)
                 header: "Color",
                 value: `${value.color}`,
                 type: "custom",
-                custom: () => <input type="color"/>
+                custom: (props, onChange) => <ColorInput value={props.value} disabled={props.disabled}
+                                                         onChange={onChange}/>
             },
             {
                 propName: "strokeWidth",

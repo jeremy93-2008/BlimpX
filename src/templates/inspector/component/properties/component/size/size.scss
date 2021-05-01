@@ -1,23 +1,45 @@
+@import "../../../../../../sass/variable";
+
 .size-input-container {
   display: flex;
   width: 100%;
+  align-items: flex-end;
 
   &.disabled {
     pointer-events: none;
     filter: grayscale(1);
+
+    .size-input-select {
+      background: $bgSecondaryColor;
+    }
   }
 
   .size-input-text {
-    flex: 6;
+    flex: 1;
     min-width: 0;
     font-size: 16px;
     margin-right: 10px;
     background: none;
     border: none;
+    outline: none;
     color: white;
+
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
   }
 
   .size-input-select {
+    flex: 1;
+    background: $bgPrimaryColor;
+    border-color: $bgPrimaryColor;
+    font-size: 16px;
+    color: white;
+    outline: none;
+  }
+
+  .size-input-label {
+    display: inline-block;
     flex: 1;
   }
 }

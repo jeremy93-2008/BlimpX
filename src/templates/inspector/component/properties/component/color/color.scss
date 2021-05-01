@@ -1,0 +1,50 @@
+@import "../../../../../../sass/variable";
+
+.color-input-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  .color-selected-input {
+    flex: 0.8;
+    height: 32px;
+    border: solid 1px transparent;
+    border-radius: 10px;
+    cursor: pointer;
+
+    &:hover {
+      border-color: gray;
+    }
+  }
+
+  .color-modal-container {
+    position: absolute;
+    background: $bgLighterPrimaryColor;
+    border: solid 1px $bgPrimaryColor;
+    border-radius: 10px;
+    margin-left: -37vw;
+    z-index: 20;
+    width: 200px;
+    height: 250px;
+
+    .hue-slider-container {
+      position: relative;
+      width: 180px;
+      height: 12px;
+      border-radius: 15px;
+    }
+
+    .chroma-container {
+      width: 180px;
+      height: 180px;
+    }
+
+    .saturate-slider-container {
+      position: relative;
+      width: 180px;
+      height: 12px;
+      border-radius: 15px;
+    }
+  }
+
+}

@@ -22,7 +22,7 @@ export const mockLayers: IBlimpLayer[] = [
                             width: 250,
                             height: 150,
                             radius: 0,
-                            stroke: "black",
+                            stroke: "rgb(0, 0, 0)",
                             strokeWidth: 2
                         }
                     },
@@ -35,7 +35,7 @@ export const mockLayers: IBlimpLayer[] = [
                             width: 250,
                             height: 150,
                             radius: 0,
-                            stroke: "black",
+                            stroke: "rgb(0, 0, 0)",
                             strokeWidth: 2
                         }
                     }
@@ -54,7 +54,7 @@ export const mockLayers: IBlimpLayer[] = [
                             width: 250,
                             height: 150,
                             radius: 20,
-                            stroke: "black",
+                            stroke: "rgb(0, 0, 0)",
                             strokeWidth: 2
                         }
                     },
@@ -67,7 +67,7 @@ export const mockLayers: IBlimpLayer[] = [
                             width: 250,
                             height: 150,
                             radius: 20,
-                            stroke: "black",
+                            stroke: "rgb(0, 0, 0)",
                             strokeWidth: 2
                         }
                     }
@@ -93,7 +93,7 @@ export const mockLayers: IBlimpLayer[] = [
                             x: 150,
                             y: 80,
                             radius: 50,
-                            stroke: "blue",
+                            stroke: "rgb(0, 0, 255)",
                             strokeWidth: 2
                         }
                     },
@@ -104,7 +104,7 @@ export const mockLayers: IBlimpLayer[] = [
                             x: 150,
                             y: 100,
                             radius: 50,
-                            stroke: "blue",
+                            stroke: "rgb(0, 0, 255)",
                             strokeWidth: 2
                         }
                     }
@@ -116,7 +116,7 @@ export const mockLayers: IBlimpLayer[] = [
                             x: 180,
                             y: 120,
                             radius: 50,
-                            stroke: "blue",
+                            stroke: "rgb(0, 0, 255)",
                             strokeWidth: 2
                         }
                     }
