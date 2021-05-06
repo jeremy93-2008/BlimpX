@@ -1,11 +1,13 @@
-import React, {useMemo} from "react";
+import React, {useCallback, useMemo, useState} from "react";
+import {IHSLObject} from "@source/util/color";
 
 interface IHueSliderProps {
-    x: number;
+    color: IHSLObject;
 }
 
 export function HueSlider(props: IHueSliderProps) {
-    const {x} = props;
+    const { color } = props;
+
     const linearGradient = useMemo(() => {
         let linear = "linear-gradient(to right, ";
         [...new Array(360)].map((_c, idx) => {
@@ -14,5 +16,7 @@ export function HueSlider(props: IHueSliderProps) {
         return `${linear.slice(0, linear.length - 1)})`;
     }, []);
 
-    return (<div className="hue-slider-container" style={{background: linearGradient}}/>)
+    return (<div className="hue-slider-container" style={{background: linearGradient}}>
+        <div className="picker-pointer-hue" style={{marginLeft: 0}} />
+    </div>)
 }

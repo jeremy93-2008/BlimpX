@@ -10,5 +10,7 @@ export function ChromaPicker(props: IChromaProps) {
     const gradientChroma = `linear-gradient(to bottom, transparent, black), 
     linear-gradient(to right, white, transparent), ${color ?? "rgb(255,0,0)"}`
 
-    return (<div className="chroma-container" style={{background: gradientChroma}}/>)
+    return (<div className="chroma-container" style={{background: gradientChroma}}>
+        <div className="picker-pointer-chroma" style={{marginLeft: 0}} />
+    </div>)
 }

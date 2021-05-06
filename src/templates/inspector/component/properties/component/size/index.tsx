@@ -18,7 +18,7 @@ export function SizeInput(props: ISizeInputProps) {
     const onChangeSize = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
         if (!refSelectMetric.current && inputMetrics.length > 1) return;
         setValue(evt.target.value)
-        onChange && onChange(evt.target.value + refSelectMetric.current!.value)
+        onChange && onChange(evt.target.value)
     }, [props]);
 
     useEffect(() => {

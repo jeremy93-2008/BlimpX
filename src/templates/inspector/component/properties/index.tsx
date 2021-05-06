@@ -16,7 +16,7 @@ export type IPropObject = {
 }
 
 export function Properties() {
-    const [store] = useContext(BlimpContext)
+    const [store, setStore] = useContext(BlimpContext)
 
     const currentObjectProperties = useMemo(() => {
         const currentLayer = store.layers.find((layer) =>
@@ -52,18 +52,50 @@ export function Properties() {
         return value;
     }, [])
 
+    const onChangeValue = useCallback((content: IBlimpPropsInspector) => (newValue: string) => {
+        const newLayers = store.layers.map((layer, idx) => {
+            if(layer._id != store.layers[store.currentLayer]._id) return layer;
+            const newObjects = layer.objects.map(obj => {
+                if(obj._id != store.currentObject) return obj;
+                const newFrames = obj.frames.map(frame => {
+                    if(frame._id != obj.frames[store.currentFrame]._id) return frame;
+                    return {
+                        ...frame,
+                        params: {
+                            ...frame.params,
+                            [content.propName]: newValue
+                        }
+                    }
+                })
+                return {
+                    ...obj,
+                    frames: newFrames
+                }
+            })
+            return {
+                ...layer,
+                objects: newObjects
+            };
+        })
+        setStore({
+            type: "setLayer",
+            state: {...store, layers: newLayers}
+        })
+    }, [store])
+
     const getContentFieldByType = useCallback((content: IBlimpPropsInspector) => {
         const {type, custom, value, disabled} = content;
+        const onChange = onChangeValue(content)
         if (type == "text" || type == "number")
             return <input disabled={disabled ?? false}
                           className="section-value-input"
                           type={type}
+                          onChange={(evt) => onChange(evt.target.value)}
                           value={!disabled ?
                               getValueByType(type, value) ?? ""
                               : "None"}/>
         if (!custom) throw TypeError("You need to specify a custom prop if custom are used in the type prop")
-        return custom(content, () => {
-        });
+        return custom(content, onChange);
     }, [store])
 
     return (

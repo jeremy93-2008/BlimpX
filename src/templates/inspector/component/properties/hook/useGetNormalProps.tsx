@@ -60,7 +60,7 @@ export function getPositionProps(type: IBlimpObjectType, value: IPositionPropsVa
                 disabled: type === "Circle",
                 value: `${value.width}`,
                 custom: (props, onChange) => <SizeInput disabled={props.disabled} value={props.value}
-                                                        onChange={onChange}/>,
+                                                        onChange={onChange} metrics={["px"]}/>,
                 type: "custom"
             },
             {
@@ -69,7 +69,7 @@ export function getPositionProps(type: IBlimpObjectType, value: IPositionPropsVa
                 disabled: type === "Circle",
                 value: `${value.height}`,
                 custom: (props, onChange) => <SizeInput disabled={props.disabled} value={props.value}
-                                                        onChange={onChange}/>,
+                                                        onChange={onChange} metrics={["px"]}/>,
                 type: "custom"
             },
             {
