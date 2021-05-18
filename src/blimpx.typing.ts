@@ -6,7 +6,8 @@ import {PathConfig} from "konva/types/shapes/Path";
 
 export interface IBlimpXAction {
     type: "setUser" | "setLayer" | "setPlaying" |
-        "setTimeline" | "setName" | "setFps" | "setCurrentFrame" | "setMode" | "setCurrentObject";
+        "setTimeline" | "setName" | "setFps" |
+        "setCurrentFrame" | "setMode" | "setCurrentObject" | "setCurrentLayer";
     state: Partial<IBlimpState>;
 }
 
@@ -97,12 +98,14 @@ export interface IBlimpTabsInspector {
     content: JSX.Element
 }
 
+export type IBlimpPropsOnChange = (newValue: string | number) => void
+
 export interface IBlimpPropsInspector {
     propName: string;
     header: string | JSX.Element;
     type: "text" | "number" | "custom";
     disabled?: boolean;
     value?: string;
-    custom?: (props: IBlimpPropsInspector, onChange: (newValue: string) => void) => JSX.Element;
+    custom?: (props: IBlimpPropsInspector, onChange: IBlimpPropsOnChange) => JSX.Element;
     pattern?: RegExp;
 }

@@ -1,11 +1,12 @@
 import React, {ChangeEvent, useCallback, useEffect, useRef, useState} from "react";
 
 import "./size.scss";
+import {IBlimpPropsOnChange} from "../../../../../../blimpx.typing";
 
 interface ISizeInputProps {
     value?: string;
     disabled?: boolean;
-    onChange?: (newValue: string) => void;
+    onChange?: IBlimpPropsOnChange;
     metrics?: string[];
 }
 
@@ -18,7 +19,7 @@ export function SizeInput(props: ISizeInputProps) {
     const onChangeSize = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
         if (!refSelectMetric.current && inputMetrics.length > 1) return;
         setValue(evt.target.value)
-        onChange && onChange(evt.target.value)
+        onChange && onChange(Number(evt.target.value))
     }, [props]);
 
     useEffect(() => {

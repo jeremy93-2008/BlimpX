@@ -52,13 +52,12 @@ export function Properties() {
         return value;
     }, [])
 
-    const onChangeValue = useCallback((content: IBlimpPropsInspector) => (newValue: string) => {
+    const onChangeValue = useCallback((content: IBlimpPropsInspector) => (newValue: string | number) => {
         const newLayers = store.layers.map((layer, idx) => {
-            if(layer._id != store.layers[store.currentLayer]._id) return layer;
             const newObjects = layer.objects.map(obj => {
-                if(obj._id != store.currentObject) return obj;
+                if (obj._id != store.currentObject) return obj;
                 const newFrames = obj.frames.map(frame => {
-                    if(frame._id != obj.frames[store.currentFrame]._id) return frame;
+                    if (frame._id != obj.frames[store.currentFrame]._id) return frame;
                     return {
                         ...frame,
                         params: {
@@ -90,7 +89,10 @@ export function Properties() {
             return <input disabled={disabled ?? false}
                           className="section-value-input"
                           type={type}
-                          onChange={(evt) => onChange(evt.target.value)}
+                          onChange={(evt) => {
+                              if (isNaN(Number(evt.target.value))) return onChange(evt.target.value)
+                              return onChange(Number(evt.target.value))
+                          }}
                           value={!disabled ?
                               getValueByType(type, value) ?? ""
                               : "None"}/>

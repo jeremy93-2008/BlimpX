@@ -49,6 +49,8 @@ export const blimpActions = (state: IBlimpState, action: IBlimpXAction): IBlimpS
             return {...state, currentFrame: action.state.currentFrame!};
         case "setCurrentObject":
             return {...state, currentObject: action.state.currentObject!}
+        case "setCurrentLayer":
+            return {...state, currentLayer: action.state.currentLayer!}
         case "setLayer":
             return {...state, layers: action.state.layers!};
         case "setTimeline":

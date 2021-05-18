@@ -25,7 +25,8 @@ export const useWidthLayer = (layersRef: React.RefObject<HTMLElement>,
     return null;
 }
 
-const onClickLayer = (context: IBlimpContext, newCurrentFrame: number, newCurrentObject?: string) => {
+const onClickLayer = (context: IBlimpContext, newCurrentFrame: number,
+                      newCurrentLayer?: number, newCurrentObject?: string) => {
     const [store, setStore] = context;
     if (store.isPlaying) return;
     setStore({
@@ -54,13 +55,13 @@ const getHeaderTemplate = (context: IBlimpContext, idx: number, xForLayer: numbe
     </div>)
 }
 
-const getFrameTemplate = (context: IBlimpContext, object: IBlimpObject, idx: number) => {
+const getFrameTemplate = (context: IBlimpContext, object: IBlimpObject, layerIdx: number, idx: number) => {
     const [store] = context;
     const currentFrame = idx;
     const isFrameExist = object.frames.find(frame => frame.frame === currentFrame)
     const isFrameSelected = store.currentFrame === idx && store.currentObject === object._id
     return (<>
-        <div onClick={() => onClickLayer(context, currentFrame, object._id)} key={idx} className="line">
+        <div onClick={() => onClickLayer(context, currentFrame, layerIdx, object._id)} key={idx} className="line">
             <div className={`frame-content ${isFrameSelected ? "frame-selected" : ""}`}
                  style={{width: store.frameWidth}}/>
             <span className="is-frame-exist">{isFrameExist ? "●" : ""}</span>
@@ -80,7 +81,7 @@ export const getLayersByWidth = (name: layersType, context: IBlimpContext, layer
         if (name == "header")
             return getHeaderTemplate(context, idx, timeline.scroll.xFrame)
         else if (name == "frames" && layerIdx != undefined && objectIdx != undefined)
-            return getFrameTemplate(context, store.layers[layerIdx].objects[objectIdx], idx)
+            return getFrameTemplate(context, store.layers[layerIdx].objects[objectIdx], layerIdx, idx)
         return null;
     });
 }
