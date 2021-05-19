@@ -1,15 +1,16 @@
-import React, {useCallback, useMemo, useRef, useState} from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import {FaTimes} from "react-icons/fa";
 import {HueSlider} from "./component/hueSlider";
 import {ChromaPicker} from "./component/chromaPicker";
 
 import "./color.scss";
-import {getRGBObject, IHSLObject, toHSLinRGB, toRGBinHSL} from "../../../../../../util/color";
+import {getRGBObject, IHSLObject, toRGBinHSL} from "../../../../../../util/color";
+import {IBlimpPropsOnChange} from "../../../../../../blimpx.typing";
 
 interface IColorProps {
     value?: string;
     disabled?: boolean;
-    onChange?: (newValue: string) => void;
+    onChange: IBlimpPropsOnChange;
 }
 
 export function ColorInput(props: IColorProps) {
@@ -45,8 +46,8 @@ export function ColorInput(props: IColorProps) {
                     <div className="title-color-modal-container">Solid Color</div>
                     <FaTimes onClick={() => setVisible(false)} />
                 </div>
-                <ChromaPicker color={value}/>
-                <HueSlider color={HSLColor}/>
+                <ChromaPicker color={HSLColor} onChange={onChange} />
+                <HueSlider color={HSLColor} onChange={onChange} />
             </div>}
         </div>
     )

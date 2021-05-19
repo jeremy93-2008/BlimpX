@@ -1,8 +1,10 @@
 import React, {useCallback, useMemo, useState} from "react";
 import {IHSLObject} from "@source/util/color";
+import {IBlimpPropsOnChange} from "../../../../../../../../blimpx.typing";
 
 interface IHueSliderProps {
     color: IHSLObject;
+    onChange: IBlimpPropsOnChange;
 }
 
 export function HueSlider(props: IHueSliderProps) {

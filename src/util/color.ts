@@ -22,6 +22,14 @@ export function getRGBObject(rgb: string): IRGBObject {
     }
 }
 
+export function getRGBString(rgb: IRGBObject) {
+    return `rgb(${rgb.Red}, ${rgb.Blue}, ${rgb.Green})`
+}
+
+export function getHSLString(hsl: IHSLObject) {
+    return `hsl(${hsl.Hue}, ${hsl.Saturate}, ${hsl.Lightning})`
+}
+
 export function toRGBinHSL(rgb: IRGBObject): IHSLObject {
     let {Red: r, Blue: b, Green: g} = rgb;
     r /= 255, g /= 255, b /= 255;
