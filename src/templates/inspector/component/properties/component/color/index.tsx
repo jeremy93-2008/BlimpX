@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {FaTimes} from "react-icons/fa";
 import {HueSlider} from "./component/hueSlider";
 import {ChromaPicker} from "./component/chromaPicker";
@@ -33,6 +33,10 @@ export function ColorInput(props: IColorProps) {
         setVisible(!isVisible)
     }, [isVisible])
 
+    useEffect(() => {
+        setValue(defaultValue || "rgb(0, 0, 0)")
+    }, [defaultValue])
+
     return (
         <div className="color-input-container">
             <div ref={refColorButton}
@@ -44,10 +48,10 @@ export function ColorInput(props: IColorProps) {
                  style={{top: topStyle}}>
                 <div className="header-color-modal-container">
                     <div className="title-color-modal-container">Solid Color</div>
-                    <FaTimes onClick={() => setVisible(false)} />
+                    <FaTimes onClick={() => setVisible(false)}/>
                 </div>
-                <ChromaPicker color={HSLColor} onChange={onChange} />
-                <HueSlider color={HSLColor} onChange={onChange} />
+                <ChromaPicker color={HSLColor} onChange={onChange}/>
+                <HueSlider color={HSLColor} onChange={onChange}/>
             </div>}
         </div>
     )
