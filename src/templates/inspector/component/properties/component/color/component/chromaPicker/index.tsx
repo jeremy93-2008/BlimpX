@@ -1,4 +1,4 @@
-import React, {MouseEvent, useCallback, useEffect, useRef, useState} from "react";
+import React, {MouseEvent, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {IBlimpPropsOnChange} from "../../../../../../../../blimpx.typing";
 import {getHSLString, getRGBString, IHSLObject, toHSLinRGB} from "../../../../../../../../util/color";
 
@@ -17,8 +17,10 @@ export function ChromaPicker(props: IChromaProps) {
     const refChroma = useRef<HTMLDivElement>(null)
     const [{x, y}, setPosition] = useState<IColorPosition>({x: 0, y: 0})
 
-    const gradientChroma = `linear-gradient(to bottom, transparent, black), 
+    const gradientChroma = useMemo(() => {
+        return `linear-gradient(to bottom, transparent, black), 
     linear-gradient(to right, white, transparent), ${getHSLString(color, true) ?? "rgb(255,0,0)"}`
+    }, [color])
 
     useEffect(() => {
         if (!refChroma.current) return;
@@ -34,7 +36,7 @@ export function ChromaPicker(props: IChromaProps) {
             x: newX > boundingRect.width - 12 ? boundingRect.width - 12 : newX,
             y: newY > boundingRect.height - 12 ? boundingRect.height - 12 : newY
         })
-    }, [])
+    }, [color])
 
     const onMouseColorDown = useCallback((evt: MouseEvent<HTMLDivElement>) => {
         if (!refChroma.current) return;
@@ -55,7 +57,7 @@ export function ChromaPicker(props: IChromaProps) {
             Saturate: `${saturate}`,
             Lightning: `${(2 - saturate) * brightness / 2}`
         })))
-    }, [])
+    }, [color])
 
     return (<div onMouseDown={onMouseColorDown} ref={refChroma} className="chroma-container"
                  style={{background: gradientChroma}}>

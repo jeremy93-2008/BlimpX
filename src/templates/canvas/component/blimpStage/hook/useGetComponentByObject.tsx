@@ -89,7 +89,10 @@ function getComponentByType(context: IBlimpContext, obj: IBlimpObjectRender) {
             evt.cancelBubble = true;
         },
         ...getAttrs(currentParams),
-        fillPatternImage: isObjectSelected ? gridSelectedImage : undefined,
+        ...(isObjectSelected ? {
+            fillPatternImage: isObjectSelected ? gridSelectedImage : undefined,
+            fillPriority: isObjectSelected ? "pattern" : "color",
+        } : {})
     }
 
 

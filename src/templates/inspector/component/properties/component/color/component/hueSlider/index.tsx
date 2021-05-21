@@ -24,13 +24,18 @@ export function HueSlider(props: IHueSliderProps) {
         if (!refSlide.current) return;
         const boundingRect = refSlide.current!.getBoundingClientRect()
         const newX = evt.clientX - boundingRect.x
+
         setX(newX)
+
+        const saturate = `${Number(color.Saturate.replace("%", "")) / 100}`
+        const lightning = `${Number(color.Lightning.replace("%", "")) / 100}`
+
         onChange(getRGBString(toHSLinRGB({
             Hue: `${(360 - (newX * 2)) / 360}`,
-            Saturate: `${Number(color.Saturate.replace("%", "")) / 100}`,
-            Lightning: `${Number(color.Lightning.replace("%", "")) / 100}`
+            Saturate: saturate === '0' ? '1' : saturate,
+            Lightning: lightning === '0' ? '0.5' : lightning
         })))
-    }, [])
+    }, [color])
 
     useEffect(() => {
         if (!refSlide.current) return

@@ -24,10 +24,10 @@ export function ColorInput(props: IColorProps) {
             refColorButton.current.getBoundingClientRect().top : 0
     }, [isVisible])
 
-    const HSLColor: IHSLObject = useMemo(() => {
+    const HSLColor = useCallback(() => {
         const rgbObject = getRGBObject(value);
-        return toRGBinHSL(rgbObject);
-    }, [props])
+        return toRGBinHSL(rgbObject) as IHSLObject;
+    }, [props, value])
 
     const onModalColorClick = useCallback(() => {
         setVisible(!isVisible)
@@ -50,8 +50,8 @@ export function ColorInput(props: IColorProps) {
                     <div className="title-color-modal-container">Solid Color</div>
                     <FaTimes onClick={() => setVisible(false)}/>
                 </div>
-                <ChromaPicker color={HSLColor} onChange={onChange}/>
-                <HueSlider color={HSLColor} onChange={onChange}/>
+                <ChromaPicker color={HSLColor()} onChange={onChange}/>
+                <HueSlider color={HSLColor()} onChange={onChange}/>
             </div>}
         </div>
     )
