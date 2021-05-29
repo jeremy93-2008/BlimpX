@@ -4,17 +4,12 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   color: white;
   height: 36px;
   border-bottom: solid 1px $bgSecondaryColor;
 
   .actionbar-section {
     display: flex;
-
-    &.absolute {
-      position: absolute;
-      right: 0;
-    }
   }
 }

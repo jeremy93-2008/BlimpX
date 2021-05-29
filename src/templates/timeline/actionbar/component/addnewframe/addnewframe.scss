@@ -1,0 +1,31 @@
+@import "../../../../../sass/variable";
+
+.add-new-frame-container {
+  margin-left: 15px;
+
+  .add-new-frame-button {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: $accentColor;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color .2s linear;
+
+    &:hover {
+      background-color: $bgSecondaryColor;
+    }
+
+    & svg {
+      margin-right: 5px;
+    }
+
+    &.disabled {
+      pointer-events: none;
+      cursor: not-allowed;
+      filter: grayscale(1);
+    }
+  }
+}

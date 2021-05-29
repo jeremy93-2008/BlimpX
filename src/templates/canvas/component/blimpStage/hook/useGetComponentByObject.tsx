@@ -1,14 +1,19 @@
 import React, {useCallback} from "react";
-import {Circle, Image as ImageKonva, KonvaNodeComponent, Path, Rect, Text} from "react-konva";
+import {Circle, Group, Image as ImageKonva, KonvaNodeComponent, Path, Rect, Text} from "react-konva";
 import {IBlimpFrame, IBlimpObjectRender, IBlimpParams} from "../../../../../blimpx.typing";
 import {IBlimpContext} from "../../../../../blimpx";
 import grid from "../../../../../images/grid.png";
 import Konva from "konva";
 import KonvaEventObject = Konva.KonvaEventObject;
 
-const getAttrs = (params: IBlimpParams | null) => {
+const getObjectAttrs = (params: IBlimpParams | null) => {
     if (!params) return {};
-    return {...params};
+    return {...params, x: 0, y: 0};
+}
+
+const getGroupAttrs = (params: IBlimpParams | null) => {
+    if (!params) return {};
+    return {x: params.x, y: params.y};
 }
 
 const getOpacityNumber = (defaultValue: number, frame: IBlimpFrame, currentFrame: number) => {
@@ -22,7 +27,7 @@ const getOpacityNumber = (defaultValue: number, frame: IBlimpFrame, currentFrame
 const getOnionComponents = (Component: KonvaNodeComponent<any, any>, currentFrame: number, frame: IBlimpFrame) => {
     const opacityNumber = getOpacityNumber(0.2, frame, currentFrame)
     const isPrevFrame = frame.frame < currentFrame;
-    return <Component key={frame._id} {...getAttrs(frame.params)}
+    return <Component key={frame._id} {...getObjectAttrs(frame.params)} {...getGroupAttrs(frame.params)}
                       opacity={opacityNumber} stroke={isPrevFrame ? "green" : "red"}/>
 }
 
@@ -47,6 +52,7 @@ function getComponentByType(context: IBlimpContext, obj: IBlimpObjectRender) {
 
     const onDragEnd = (obj: IBlimpObjectRender, e: KonvaEventObject<DragEvent>) => {
         if (store.mode !== "Default") return;
+        console.log(e)
         const newLayers = store.layers.map(layer => {
             return {
                 ...layer,
@@ -74,10 +80,10 @@ function getComponentByType(context: IBlimpContext, obj: IBlimpObjectRender) {
     const gridSelectedImage = new Image();
     gridSelectedImage.src = grid;
 
-    const CanvasAttributeObject = {
+    const GroupAttributeObject = {
+        key: obj._id,
         draggable: isDefaultMode,
         onDragEnd: (e: KonvaEventObject<DragEvent>) => onDragEnd(obj, e),
-        key: obj._id,
         onMouseDown: (evt: KonvaEventObject<MouseEvent>) => {
             setStore({
                 type: "setCurrentObject",
@@ -88,34 +94,59 @@ function getComponentByType(context: IBlimpContext, obj: IBlimpObjectRender) {
             })
             evt.cancelBubble = true;
         },
-        ...getAttrs(currentParams),
-        ...(isObjectSelected ? {
+        ...getGroupAttrs(currentParams)
+    }
+
+    const CanvasAttributeObject = {
+        key: obj._id + "-0",
+        ...getObjectAttrs(currentParams),
+    }
+
+    const CanvasAttributeObjectSelected = {
+        key: obj._id + "-1",
+        ...getObjectAttrs(currentParams),
+        ...{
             fillPatternImage: isObjectSelected ? gridSelectedImage : undefined,
-            fillPriority: isObjectSelected ? "pattern" : "color",
-        } : {})
+            fillPriority: "pattern"
+        }
     }
 
 
     switch (obj.type) {
         case "Rectangle":
             return [currentFrame ?
-                <Rect {...CanvasAttributeObject as any}/> : null,
+                <Group {...GroupAttributeObject as any}>
+                    <Rect {...CanvasAttributeObject as any}/>
+                    <Rect {...CanvasAttributeObjectSelected as any} />
+                </Group> : null,
                 nextFrames!.map(f => getOnionComponents(Rect, store.currentFrame, f))];
         case "Circle":
             return [currentFrame ?
-                <Circle {...CanvasAttributeObject as any} /> : null,
+                <Group {...GroupAttributeObject as any}>
+                    <Circle {...CanvasAttributeObject as any}/>
+                    <Circle {...CanvasAttributeObjectSelected as any} />
+                </Group> : null,
                 nextFrames!.map(f => getOnionComponents(Circle, store.currentFrame, f))];
         case "Image":
             return [currentFrame ?
-                <ImageKonva {...CanvasAttributeObject as any} /> : null,
+                <Group {...GroupAttributeObject as any}>
+                    <ImageKonva {...CanvasAttributeObject as any}/>
+                    <ImageKonva {...CanvasAttributeObjectSelected as any} />
+                </Group> : null,
                 nextFrames!.map(f => getOnionComponents(ImageKonva, store.currentFrame, f))];
         case "Text":
             return [currentFrame ?
-                <Text {...CanvasAttributeObject as any} /> : null,
+                <Group {...GroupAttributeObject as any}>
+                    <Text {...CanvasAttributeObject as any}/>
+                    <Text {...CanvasAttributeObjectSelected as any} />
+                </Group> : null,
                 nextFrames!.map(f => getOnionComponents(Text, store.currentFrame, f))];
         default:
             return [currentFrame ?
-                <Path {...CanvasAttributeObject as any} /> : null,
+                <Group {...GroupAttributeObject as any}>
+                    <Path {...CanvasAttributeObject as any}/>
+                    <Path {...CanvasAttributeObjectSelected as any} />
+                </Group> : null,
                 nextFrames!.map(f => getOnionComponents(Path, store.currentFrame, f))]
     }
 }

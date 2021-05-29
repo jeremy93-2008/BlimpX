@@ -23,7 +23,14 @@ export function useDrawPathHelper(context: IBlimpContext,
         const moveX = (konvaEvt.evt.x - target.x) - (x || 0)
         const moveY = (konvaEvt.evt.y - target.y) - (y || 0)
         const initialData = `${data} ${moveX} ${moveY}`
-        setDrawComponentByMode({x, y, strokeWidth: 2, stroke: "orange", data: initialData, movePathData: initialData})
+        setDrawComponentByMode({
+            x,
+            y,
+            strokeWidth: 2,
+            stroke: "rgb(255,165,0)",
+            data: initialData,
+            movePathData: initialData
+        })
     }, [context, drawComponent]);
 
     const onDblClickPathNewObject = useCallback((konvaEvt: KonvaEventObject<MouseEvent>) => {

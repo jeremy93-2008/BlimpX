@@ -20,7 +20,7 @@ export function useDrawGenericHelper(context: IBlimpContext,
     const getCommonParam = useCallback((x: number, y: number): IBlimpParams => ({
         x,
         y,
-        stroke: "orange",
+        stroke: "rgb(255,165,0)",
         strokeWidth: 2,
         width: 20,
         height: 20,
