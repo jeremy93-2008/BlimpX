@@ -77,6 +77,8 @@ function getComponentByType(context: IBlimpContext, obj: IBlimpObjectRender) {
         })
     }
 
+    const selectedLayer = store.layers.findIndex(layer => layer.objects.find(l_obj => l_obj._id == obj._id))
+
     const gridSelectedImage = new Image();
     gridSelectedImage.src = grid;
 
@@ -85,6 +87,13 @@ function getComponentByType(context: IBlimpContext, obj: IBlimpObjectRender) {
         draggable: isDefaultMode,
         onDragEnd: (e: KonvaEventObject<DragEvent>) => onDragEnd(obj, e),
         onMouseDown: (evt: KonvaEventObject<MouseEvent>) => {
+            setStore({
+                type: "setCurrentLayer",
+                state: {
+                    ...store,
+                    currentLayer: selectedLayer
+                }
+            })
             setStore({
                 type: "setCurrentObject",
                 state: {

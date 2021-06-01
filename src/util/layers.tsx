@@ -33,6 +33,11 @@ const onClickLayer = (context: IBlimpContext, newCurrentFrame: number,
         type: "setCurrentFrame",
         state: {...store, currentFrame: newCurrentFrame}
     })
+    if (newCurrentLayer)
+        setStore({
+            type: "setCurrentLayer",
+            state: {...store, currentLayer: newCurrentLayer}
+        })
     if (newCurrentObject)
         setStore({
             type: "setCurrentObject",
