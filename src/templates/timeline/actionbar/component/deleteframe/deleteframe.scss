@@ -1,0 +1,32 @@
+@import "../../../../../sass/variable";
+
+.delete-frame-container {
+  margin-left: 15px;
+
+  .delete-frame-button {
+    display: flex;
+    align-items: center;
+    height: 27px;
+    font-size: 12px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: $accentColor;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color .2s linear;
+
+    &:hover {
+      background-color: $bgSecondaryColor;
+    }
+
+    & svg {
+      margin-right: 2px;
+    }
+
+    &.disabled {
+      pointer-events: none;
+      cursor: not-allowed;
+      filter: grayscale(1);
+    }
+  }
+}

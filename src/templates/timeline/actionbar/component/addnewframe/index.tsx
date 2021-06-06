@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useMemo, useState} from "react";
+import React, {useCallback, useContext, useMemo} from "react";
 import {v4 as uuidv4} from "uuid";
 import {BlimpContext} from "../../../../../blimpx";
 import {FaPlus} from "react-icons/fa";
@@ -9,8 +9,6 @@ import {IBlimpFrame, IBlimpParams} from "../../../../../blimpx.typing";
 
 export function AddNewFrame() {
     const [store, setStore] = useContext(BlimpContext)
-    const [currentObject, setCurrentObject] = useState<string | null>(null)
-    const [currentFrame, setCurrentFrame] = useState<number | null>(null)
 
     const isObjectSelected = useMemo(() => {
         return store.currentObject != null && store.currentLayer != null
