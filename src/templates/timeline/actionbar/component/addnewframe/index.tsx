@@ -63,7 +63,7 @@ export function AddNewFrame() {
     return (
         <div className="add-new-frame-container">
             <div onClick={onNewFrameClick}
-                 className={`add-new-frame-button ${!isObjectSelected ? "disabled" : ""}`}
+                 className={`add-new-frame-button ${!isObjectSelected ? "not-allowed" : ""}`}
                  title="Add a new frame of the current selected object">
                 <FaPlus/>
                 Add New Frame

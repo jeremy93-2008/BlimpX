@@ -1,4 +1,5 @@
 @import "../../../../../sass/variable";
+@import "../../../../../sass/base/state";
 
 .add-new-frame-container {
   margin-left: 15px;
@@ -20,12 +21,6 @@
 
     & svg {
       margin-right: 5px;
-    }
-
-    &.disabled {
-      pointer-events: none;
-      cursor: not-allowed;
-      filter: grayscale(1);
     }
   }
 }

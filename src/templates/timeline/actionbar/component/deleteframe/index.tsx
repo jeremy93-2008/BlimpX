@@ -53,7 +53,7 @@ export function DeleteFrame() {
     return (
         <div className="delete-frame-container">
             <div onClick={onDeleteFrameClick}
-                 className={`delete-frame-button ${!isObjectSelected && !isMinFrame ? "disabled" : ""}`}
+                 className={`delete-frame-button ${!isObjectSelected && !isMinFrame ? "not-allowed" : ""}`}
                  title="Delete the current frame of the selected object">
                 <FaTrash/>
             </div>

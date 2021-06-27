@@ -1,0 +1,7 @@
+@import "../variable";
+
+.not-allowed {
+  pointer-events: none;
+  cursor: not-allowed;
+  background-color: $disabledColor !important;
+}
