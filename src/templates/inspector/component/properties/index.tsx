@@ -58,11 +58,23 @@ export function Properties() {
                 if (obj._id != store.currentObject) return obj;
                 const newFrames = obj.frames.map(frame => {
                     if (frame._id != obj.frames[store.currentFrame]._id) return frame;
+                    if(typeof content.propName == "string" && typeof content.value == "string")
+                        return {
+                            ...frame,
+                            params: {
+                                ...frame.params,
+                                [content.propName]: newValue
+                            }
+                        }
+                    const propNamesWithValue =
+                        (content.propName as string[]).reduce((propNamesValue,name, idx) => {
+                            return {...propNamesValue, [name]: content!.value![idx]}
+                        }, {})
                     return {
                         ...frame,
                         params: {
                             ...frame.params,
-                            [content.propName]: newValue
+                            ...propNamesWithValue
                         }
                     }
                 })
@@ -94,7 +106,7 @@ export function Properties() {
                               return onChange(Number(evt.target.value))
                           }}
                           value={!disabled ?
-                              getValueByType(type, value) ?? ""
+                              getValueByType(type, value as string) ?? ""
                               : "None"}/>
         if (!custom) throw TypeError("You need to specify a custom prop if custom are used in the type prop")
         return custom(content, onChange);

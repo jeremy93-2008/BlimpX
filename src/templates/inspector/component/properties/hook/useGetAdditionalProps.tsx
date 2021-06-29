@@ -44,7 +44,7 @@ export function getBorderProps(type: IBlimpObjectType, value: IBorderPropsValue)
                 header: "Color",
                 value: `${value.color}`,
                 type: "custom",
-                custom: (props, onChange) => <ColorInput value={props.value} disabled={props.disabled}
+                custom: (props, onChange) => <ColorInput value={props.value as string} disabled={props.disabled}
                                                          onChange={onChange}/>
             },
             {

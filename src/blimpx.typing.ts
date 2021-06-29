@@ -98,14 +98,14 @@ export interface IBlimpTabsInspector {
     content: JSX.Element
 }
 
-export type IBlimpPropsOnChange = (newValue: string | number) => void
+export type IBlimpPropsOnChange = (newValue: any | any[]) => void
 
 export interface IBlimpPropsInspector {
-    propName: string;
+    propName: string | string[];
     header: string | JSX.Element;
     type: "text" | "number" | "custom";
     disabled?: boolean;
-    value?: string;
+    value?: any | any[];
     custom?: (props: IBlimpPropsInspector, onChange: IBlimpPropsOnChange) => JSX.Element;
     pattern?: RegExp;
 }

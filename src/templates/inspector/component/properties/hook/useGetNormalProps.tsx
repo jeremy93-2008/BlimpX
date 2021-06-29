@@ -59,7 +59,7 @@ export function getPositionProps(type: IBlimpObjectType, value: IPositionPropsVa
                 header: "Width",
                 disabled: type === "Circle",
                 value: `${value.width}`,
-                custom: (props, onChange) => <SizeInput disabled={props.disabled} value={props.value}
+                custom: (props, onChange) => <SizeInput disabled={props.disabled} value={props.value as string}
                                                         onChange={onChange} metrics={["px"]}/>,
                 type: "custom"
             },
@@ -68,7 +68,7 @@ export function getPositionProps(type: IBlimpObjectType, value: IPositionPropsVa
                 header: "Height",
                 disabled: type === "Circle",
                 value: `${value.height}`,
-                custom: (props, onChange) => <SizeInput disabled={props.disabled} value={props.value}
+                custom: (props, onChange) => <SizeInput disabled={props.disabled} value={props.value as string}
                                                         onChange={onChange} metrics={["px"]}/>,
                 type: "custom"
             },
@@ -76,7 +76,7 @@ export function getPositionProps(type: IBlimpObjectType, value: IPositionPropsVa
                 propName: "rotation",
                 header: <FaRulerCombined/>,
                 value: `${value.rotation}`,
-                custom: (props, onChange) => <SizeInput disabled={props.disabled} value={props.value}
+                custom: (props, onChange) => <SizeInput disabled={props.disabled} value={props.value as string}
                                                         onChange={onChange} metrics={["º"]}/>,
                 type: "custom"
             }
@@ -100,8 +100,8 @@ export function getBackgroundProps(type: IBlimpObjectType, value: IBackgroundPro
                 header: "Color",
                 value: `${value.color}`,
                 type: "custom",
-                custom: (props, onChange) => <ColorInput value={props.value} disabled={props.disabled}
-                                                         onChange={onChange}/>
+                custom: (props, onChange) =>
+                    <ColorInput value={props.value as string} disabled={props.disabled} onChange={onChange}/>
             },
             {
                 propName: "fillPatternImage",
@@ -111,10 +111,15 @@ export function getBackgroundProps(type: IBlimpObjectType, value: IBackgroundPro
                 custom: () => <input type={"file"}/>
             },
             {
-                propName: "",
+                propName: ["fillLinearGradientStartPoint", "fillLinearGradientEndPoint", "fillLinearGradientColorStops"],
                 header: "Gradient",
-                value: `${value.gradient?.fillPatternImage}`,
-                type: "text"
+                value: [
+                    value.gradient?.fillLinearGradientStartPoint,
+                    value.gradient?.fillLinearGradientEndPoint,
+                    value.gradient?.fillLinearGradientColorStops
+                ],
+                type: "custom",
+                custom: () => <div></div>
             },
             {
                 propName: "fillPatternRepeat",
